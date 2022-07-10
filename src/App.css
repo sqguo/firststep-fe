@@ -7,6 +7,11 @@
   pointer-events: none;
 }
 
+.App-icon {
+  height: 100px;
+  width: 100px;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-float infinite 3s ease-in-out;
