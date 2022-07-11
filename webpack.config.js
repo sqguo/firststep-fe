@@ -62,6 +62,7 @@ module.exports = function (_env, argv) {
     output: {
       filename: "bundle.js",
       path: path.resolve(__dirname, "dist"),
+      publicPath: '/',
     },
     devServer: {
       static: {
@@ -73,6 +74,7 @@ module.exports = function (_env, argv) {
       client: {
         overlay: true,
       },
+      historyApiFallback: true,
     },
   };
 };

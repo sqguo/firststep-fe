@@ -1,58 +1,48 @@
-import React from 'react';
-import Logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import React from "react";
+import { BrowserRouter, Switch, Route, useRouteMatch } from "react-router-dom";
+import "./App.css";
+import Preference from "./routes/onboarding/preference";
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <div className="App-icon"><Logo /></div>
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Switch>
+        <Route path="/about">
+          <h2>about</h2>
+        </Route>
+        <Route path="/onboarding">
+          <Onboarding />
+        </Route>
+        <Route path="/dashboard">
+          <h2>dashboard</h2>
+        </Route>
+        <Route path="/">
+          <h2>Home</h2>
+        </Route>
+      </Switch>
+    </BrowserRouter>
   );
 }
 
-export default App;
+function Onboarding() {
+  let { path, url } = useRouteMatch();
+  return (
+    <div>
+      <h2>Onboarding</h2>
+      <Switch>
+        <Route path={`${path}/preferences`}>
+          <Preference preferences={[]} isLoading={false} />
+        </Route>
+        <Route path={`${path}/skillsets`}>
+          <h2>skillsets</h2>
+        </Route>
+        <Route path={`${path}/projects`}>
+          <h2>projects</h2>
+        </Route>
+        <Route path="/">
+          <h2>onboarding</h2>
+        </Route>
+      </Switch>
+    </div>
+  );
+}
