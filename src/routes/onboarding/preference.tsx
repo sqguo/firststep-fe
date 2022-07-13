@@ -11,8 +11,8 @@ interface Props {
 const Preference: FunctionComponent<Props> = (props) => {
   const dispatch = useDispatch();
   const user = useSelector((state: AppState) => state.currentUser );
-  const id = user?.id || 0;
-  const name = user?.name || "noname";
+  const id = user?.profile?.id || 0;
+  const name = user?.profile?.displayName || "noname";
   const { preferences, isLoading } = props;
 
   const onButtonClick = (id: number) => {

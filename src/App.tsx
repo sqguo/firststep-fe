@@ -25,7 +25,7 @@ export default function App() {
 }
 
 function Onboarding() {
-  let { path, url } = useRouteMatch();
+  let { path } = useRouteMatch();
   return (
     <div>
       <h2>Onboarding</h2>
