@@ -337,16 +337,7 @@ export const LeaveMatchRoundRespData = {
   data: {
     userId: 1234,
     matchroundId: 6,
-    success: true,
-    currentMatchround: {
-      id: 6,
-      currentStatus: Enums.MatchRoundStatus.Open,
-      nextStatus: Enums.MatchRoundStatus.Matching,
-      lastUpdated: new Date("2022-7-11T05:00:00"),
-      currentStart: new Date("2022-7-11T05:00:00"),
-      nextStart: new Date("2023-12-22T12:30:00"),
-      nextEnd: new Date("2023-12-25T12:30:00"),
-    },
+    success: true
   },
 };
 

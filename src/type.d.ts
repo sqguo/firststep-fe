@@ -194,7 +194,7 @@ interface GetGroupProfileResponse {
   group: Group
 }
 
-interface UpdateGroupCommitment {
+interface UpdateGroupCommitmentRequest {
   userId: number,
   groupId: number,
   action: number
