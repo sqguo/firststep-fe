@@ -1,5 +1,6 @@
 import { AnyAction } from "@reduxjs/toolkit";
 import * as actionTypes from "./actionTypes";
+import * as Enums from "../enums"
 
 
 export function getGlobalMatchingStatusStartAction(): AnyAction {
@@ -332,7 +333,7 @@ export function getGroupProfileFailureAction(status: number, error: any): AnyAct
   };
 }
 
-export function getUpdateGroupCommitmentStartAction(userId: number, groupId: number, action: GroupCommitmentOptions, reason: string | null): AnyAction {
+export function getUpdateGroupCommitmentStartAction(userId: number, groupId: number, action: Enums.GroupCommitmentOptions, reason: string | null): AnyAction {
   return {
     type: actionTypes.UPDATE_GROUP_COMMITMENT_START,
     payload: {

@@ -28,7 +28,7 @@ interface AppState {
 
 interface User {
   profile: UserProfile | null
-  onboardingStatus: OnboardingStatus
+  onboardingStatus: number
   isVerified: boolean
   isEligible: boolean
   hasGroup: boolean
@@ -53,12 +53,11 @@ interface UserProfile {
 
 interface Group {
   id: number
-  name: stringing
+  name: string
   isGroupPermanent: boolean
   dateOfCreation: Date
   members: UserProfile[]
 }
-
 interface Program {
   id: number
   code: string
@@ -72,8 +71,8 @@ interface OnboardingAttribute {
   id: number
   name: string
   description: string
-  isRequired: boolean
-  type: enums.RatingType
+  responseRequired: boolean
+  type: number
 }
 
 interface Skillset extends OnboardingAttribute {}
@@ -98,50 +97,14 @@ interface OnboardingConfig {
 
 interface MatchRound {
   id: number
-  currentStatus: MatchRoundStatus
-  nextStatus: MatchRoundStatus
-  currentAvailability: {
-    startDate: Date
-    endDate: Date
-  } | null
-  nextAvailability: {
-    startDate: Date
-    endDate: Date
-  } | null
+  lastUpdated: Date
+  currentStatus: number
+  nextStatus: number
+  currentStart: Date | null
+  nextStart: Date | null
+  nextEnd: Date | null
 }
 
-
-// ENUMS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-enum RatingType {
-  FloatSlider,    // continuous slider
-  IntSlider,      // discrete slider
-  TrueFalse,      // true or false selection
-  multipleChoice  // choose one option
-}
-
-enum OnboardingStatus {
-  NotStarted,     // have not started onboarding
-  Step0,          // confirmed user's basic details
-  Step1,          // confirmed user's skills
-  Step2,          // confirmed user's preferences
-  Completed,      // completd onboarding
-}
-
-enum MatchRoundStatus {
-  NotAvailable,   // the matchround is not open to public
-  Upcoming,       // the matchround will soon be available to join
-  Open,           // new participants may join the matchround
-  Matching,       // the matching algo is running, no one may join
-  TeamsAssigned,  // participants have been assigned to temporary teams
-  Closed,         // the matchround is over
-}
-
-enum GroupCommitmentOptions {
-  Leave,          // a member leaves the group
-  Commit,         // Votes to keep the group
-  Undecided,      // ???
-}
 
 
 // API ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -164,7 +127,7 @@ interface UpdateUserProfileResponse {
 interface GetCurrentUserResponse {
   userId: number
   profile: UserProfile
-  onboardingStatus: OnboardingStatus
+  onboardingStatus: number
   isVerified: boolean
   isEligible: boolean
   hasGroup: boolean
@@ -232,7 +195,7 @@ interface GetGroupProfileResponse {
 interface UpdateGroupCommitment {
   userId: number,
   groupId: number,
-  action: GroupCommitmentOptions
+  action: number
   reason: string | null
 }
 

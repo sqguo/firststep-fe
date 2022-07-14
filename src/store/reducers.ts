@@ -1,5 +1,6 @@
 import { AnyAction } from "@reduxjs/toolkit";
 import * as actionTypes from "./actionTypes";
+import * as Enums from "../enums"
 
 const initialState: AppState = {
   currentUser: null,
@@ -28,7 +29,7 @@ const initialState: AppState = {
 
 const initialSignedInUserState: User = {
   profile: null,
-  onboardingStatus: OnboardingStatus.NotStarted,
+  onboardingStatus: Enums.OnboardingStatus.NotStarted,
   isVerified: false,
   isEligible: false,
   hasGroup: false,
@@ -158,7 +159,7 @@ const reducer = (
       return {
         ...state,
         isVerifyingNewEmail: false,
-        isNewEmailValid: action.resp.isNewEmailValid
+        isNewEmailValid: action.isNewEmailValid
       };
     }
     case actionTypes.SIGNUP_CHECK_NEW_EMAIL_FAILURE: {
@@ -204,7 +205,7 @@ const reducer = (
         isLoadingCurrentUser: false,
         currentUser: {
           ...currentUser,
-          ...action.resp
+          ...action.data
         }
       };
     }
@@ -228,7 +229,7 @@ const reducer = (
         isLoadingUserSettings: false,
         currentUser: {
           ...currentUser,
-          skillsets: action.resp.skillsets
+          skillsets: action.skillsets
         }
       };
     }
@@ -252,7 +253,7 @@ const reducer = (
         isLoadingUserSettings: false,
         currentUser: {
           ...currentUser,
-          preferences: action.resp.preferences
+          preferences: action.preferences
         }
       };
     }

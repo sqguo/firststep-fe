@@ -1,7 +1,9 @@
 import React, { FunctionComponent } from "react";
 import { useDispatch, useSelector } from 'react-redux'
-import { getUserAction } from "../../store/actionCreators";
+import { getCurrentUserStartAction } from "../../store/actionCreators";
 import Button from '@mui/material/Button';
+
+import "./preference.scss"
 
 interface Props {
   preferences: string[];
@@ -16,12 +18,12 @@ const Preference: FunctionComponent<Props> = (props) => {
   const { preferences, isLoading } = props;
 
   const onButtonClick = (id: number) => {
-    dispatch(getUserAction(id));
+    dispatch(getCurrentUserStartAction("843424"));
   }
   
   return (
-    <div>
-      <h2>Preference</h2>
+    <div className="preference">
+      <h2 className="preference__header">Preference</h2>
       <h3>{id}</h3>
       <h3>{name}</h3>
       <Button onClick={() => onButtonClick(2305)}>Get users</Button>
