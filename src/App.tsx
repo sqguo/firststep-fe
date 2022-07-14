@@ -36,9 +36,6 @@ function Onboarding() {
         <Route path={`${path}/skillsets`}>
           <h2>skillsets</h2>
         </Route>
-        <Route path={`${path}/projects`}>
-          <h2>projects</h2>
-        </Route>
         <Route path="/">
           <h2>onboarding</h2>
         </Route>

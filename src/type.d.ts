@@ -76,7 +76,9 @@ interface OnboardingAttribute {
 }
 
 interface Skillset extends OnboardingAttribute {}
-interface Preference extends OnboardingAttribute {}
+interface Preference extends OnboardingAttribute {
+  imageUrl: string | null
+}
 
 interface UserAttribute {
   attributeId: number

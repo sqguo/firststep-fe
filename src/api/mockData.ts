@@ -1,4 +1,4 @@
-import * as Enums from "../enums"
+import * as Enums from "../enums";
 
 export const GlobalMatchingStatusRespData = {
   status: 200,
@@ -96,28 +96,31 @@ export const GetAllPreferencesRespData = {
   data: {
     preferences: [
       {
-        id: 0,
-        name: "Software",
+        id: 1000,
+        name: "Goldilocks: Consumer Electronics Comparator and Price Tracker",
         description:
-          "Software is a set of instructions, data or programs used to operate computers and execute specific tasks.",
+          "A growing share of consumer electronics sales are being conducted online. However, comparing products across different online retailers can be difficult. The objective of this project is to consolidate information across major retailers into one platform, making online shopping simpler and saving time, money, and effort. The benefit of this project is that it puts an emphasis on comparison of similar products within the same electronics category so as to allow consumers to shop for electronics when they are undecided on a particular product.",
         responseRequired: true,
-        type: Enums.RatingType.FloatSlider,
+        imageUrl: "https://www.eng.uwaterloo.ca/2021-capstone-design/software/__@_@__images@_/software1_team-photo.55dda2fb4f26.png",
+        type: Enums.RatingType.TrueFalse,
       },
       {
-        id: 1,
-        name: "Hardware",
+        id: 1001,
+        name: "EyeGuide: Smart Cane for the Visually Impaired",
         description:
-          "Computer hardware includes the physical parts of a computer, such as the case, central processing unit (CPU), random access memory (RAM).",
+          "C500,000 Canadians are estimated to be affected by sight loss, and have difficulty navigating unfamiliar spaces. The objective of EyeGuide is to attach an embedded device onto a traditional white cane. This system is responsible for detecting and identifying nearby objects, providing navigation assistance and providing location sharing. The main advantage of EyeGuide is that it provides more information to the blind than the traditional white cane and does not require training unlike guide dogs.",
         responseRequired: true,
-        type: Enums.RatingType.FloatSlider,
+        imageUrl: "https://www.eng.uwaterloo.ca/2021-capstone-design/software/__@_@__images@_/software1_team-photo.55dda2fb4f26.png",
+        type: Enums.RatingType.TrueFalse,
       },
       {
-        id: 2,
-        name: "Mechanical Design",
+        id: 1002,
+        name: "Tutorr",
         description:
-          "Mechanical design is to design parts, components, products, or systems of mechanical nature.",
+          "Market research has shown a rising demand in tutoring services as the percentage of students meeting provincial standards continue to decrease year-by-year. To address this, a crowd-sourced platform for private tutoring services that promotes personal engagement and immediate feedback has been created. With Tutorr, students are matched with mentors within their geographical location that possess relevant subject expertise, and a full-scale application integrated with payment services and live-chat is used to facilitate this experience seamlessly and efficiently.",
         responseRequired: true,
-        type: Enums.RatingType.FloatSlider,
+        imageUrl: "https://www.eng.uwaterloo.ca/2021-capstone-design/software/__@_@__images@_/software1_team-photo.55dda2fb4f26.png",
+        type: Enums.RatingType.TrueFalse,
       },
     ],
   },
@@ -242,16 +245,16 @@ export const GetCurrentUserPreferencesRespData = {
     userId: 1234,
     preferences: [
       {
-        attributeId: 0,
-        data: 7.2,
+        attributeId: 1000,
+        data: true,
       },
       {
-        attributeId: 1,
-        data: 1.2,
+        attributeId: 1001,
+        data: false,
       },
       {
-        attributeId: 2,
-        data: 2.2,
+        attributeId: 1002,
+        data: true,
       },
     ],
   },
@@ -296,16 +299,16 @@ export const UpdateUserPreferencesRespData = {
     userId: 1234,
     updatedPreferences: [
       {
-        attributeId: 0,
-        data: 7.2,
+        attributeId: 1000,
+        data: true,
       },
       {
-        attributeId: 1,
-        data: 1.2,
+        attributeId: 1001,
+        data: false,
       },
       {
-        attributeId: 2,
-        data: 2.2,
+        attributeId: 1002,
+        data: true,
       },
     ],
   },
