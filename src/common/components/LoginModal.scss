@@ -1,0 +1,51 @@
+@import "../styles/colors.scss";
+@import "../styles/Modal.scss";
+
+.login-modal {
+  &__content-container {
+    @extend %modal-content-container;
+    background-color: $bg-theme;
+
+    button.MuiButton-root {
+      background-color: black;
+      span.MuiCircularProgress-root {
+        color: white;
+      }
+    }
+  }
+
+  &__clipcart {
+    height: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+      height: 100px;
+      box-shadow: 0px 7px 41px -10px rgba(0, 0, 0, 0.7);
+    }
+  }
+
+  &__close-button-container {
+    @extend %modal-action-button-container;
+  }
+
+  &__close-button {
+    @extend %modal-action-button;
+  }
+
+  &__signin-block {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  &__signup-block {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+}

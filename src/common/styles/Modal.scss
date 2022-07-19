@@ -1,0 +1,36 @@
+%modal-content-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: $bg-light;
+  box-shadow: 6px 18px 41px 5px rgba(0, 0, 0, 0.74);
+  width: 300px;
+  height: 400px;
+  padding: 20px;
+  border-radius: 3px;
+}
+
+%modal-action-button-container {
+  position: absolute;
+  right: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+}
+
+%modal-action-button {
+  cursor: pointer;
+  border-radius: 50%;
+  padding: 0px;
+  transition: 500ms;
+  display: flex;
+  align-items: center;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 5px;
+  }
+}

@@ -54,6 +54,14 @@ module.exports = function (_env, argv) {
           issuer: /\.[jt]sx?$/,
           use: ["@svgr/webpack"],
         },
+        {
+          rules: [
+            {
+              test: /\.(png|jpg|gif)$/i,
+              type: 'asset'
+            }
+          ]
+        },
       ],
     },
     resolve: {

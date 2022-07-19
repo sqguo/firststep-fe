@@ -24,7 +24,8 @@ const initialState: AppState = {
   hasError: false,
   errorCode: null,
   errorMessage: null,
-  isNewEmailValid: false
+  isNewEmailValid: false,
+  isLoginModalOpen: false,
 };
 
 const initialSignedInUserState: User = {
@@ -206,7 +207,8 @@ const reducer = (
         currentUser: {
           ...currentUser,
           ...action.data
-        }
+        },
+        isLoginModalOpen: false,
       };
     }
     case actionTypes.GET_CURRENT_USER_FAILURE: {
@@ -410,6 +412,18 @@ const reducer = (
         ...state,
         isUpdatingGroupCommitment: false,
         hasError: true,
+      };
+    }
+    case actionTypes.OPEN_LOGIN_MODAL: {
+      return {
+        ...state,
+        isLoginModalOpen: true,
+      };
+    }
+    case actionTypes.CLOSE_LOGIN_MODAL: {
+      return {
+        ...state,
+        isLoginModalOpen: false,
       };
     }
   }

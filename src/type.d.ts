@@ -21,6 +21,7 @@ interface AppState {
 
   // TODO: refactor this
   isNewEmailValid: boolean
+  isLoginModalOpen: boolean
 }
 
 

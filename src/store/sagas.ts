@@ -4,6 +4,7 @@ import { all, call, put, takeLatest, takeLeading } from "redux-saga/effects";
 import * as actionCreators from "./actionCreators";
 import * as actionTypes from "./actionTypes";
 import * as apiService from "../api/services";
+import history from '../history'
 
 function parseErrorCode(err: Error | AxiosError) {
   if(!axios.isAxiosError(err)){
@@ -68,10 +69,13 @@ function* updateUserProfile({ payload }: AnyAction) {
   }
 }
 
-function* getCurrentUser({ email }: AnyAction) {
+function* getCurrentUser({ email, redirectURL }: AnyAction) {
   try {
     const { data } = yield call(apiService.getUserProfile, email);
     yield put(actionCreators.getCurrentUserSuccessAction(data));
+    if (redirectURL) {
+      history.push(redirectURL);
+    }
   } catch (err: any) {
     yield put(actionCreators.getCurrentUserFailureAction(parseErrorCode(err), err));
   }

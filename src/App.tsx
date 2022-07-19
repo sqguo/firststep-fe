@@ -1,13 +1,14 @@
 import React from "react";
-import { BrowserRouter, Switch, Route, useRouteMatch } from "react-router-dom";
-import "./App.css";
-import Preference from "./routes/onboarding/preference";
+import { Router, Switch, Route, useRouteMatch } from "react-router-dom";
+import history from './history';
+import { Preference, Homepage } from "./routes";
+import LoginModal from './common/components';
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <Router history={history}>
       <Switch>
-        <Route path="/about">
+        <Route exact path="/about">
           <h2>about</h2>
         </Route>
         <Route path="/onboarding">
@@ -17,10 +18,13 @@ export default function App() {
           <h2>dashboard</h2>
         </Route>
         <Route path="/">
-          <h2>Home</h2>
+          <React.Fragment>
+            <LoginModal />
+            <Homepage />
+          </React.Fragment>
         </Route>
       </Switch>
-    </BrowserRouter>
+    </Router>
   );
 }
 
@@ -30,13 +34,13 @@ function Onboarding() {
     <div>
       <h2>Onboarding</h2>
       <Switch>
-        <Route path={`${path}/preferences`}>
+        <Route exact path={`${path}/preferences`}>
           <Preference preferences={[]} isLoading={false} />
         </Route>
-        <Route path={`${path}/skillsets`}>
+        <Route exact path={`${path}/skillsets`}>
           <h2>skillsets</h2>
         </Route>
-        <Route path="/">
+        <Route exact path="/">
           <h2>onboarding</h2>
         </Route>
       </Switch>

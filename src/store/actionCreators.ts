@@ -135,10 +135,11 @@ export function getUpdateUserProfileFailureAction(status: number, error: any): A
   };
 }
 
-export function getCurrentUserStartAction(email: string): AnyAction {
+export function getCurrentUserStartAction(email: string, redirectURL?: string): AnyAction {
   return {
     type: actionTypes.GET_CURRENT_USER_START,
-    email
+    email,
+    redirectURL
   };
 }
 
@@ -360,4 +361,16 @@ export function getUpdateGroupCommitmentFailureAction(status: number, error: any
     status,
     error
   };
+}
+
+export function getOpenLoginModalAction(): AnyAction {
+  return {
+    type: actionTypes.OPEN_LOGIN_MODAL,
+  }
+}
+
+export function getCloseLoginModalAction(): AnyAction {
+  return {
+    type: actionTypes.CLOSE_LOGIN_MODAL,
+  }
 }
