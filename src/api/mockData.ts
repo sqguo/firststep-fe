@@ -157,6 +157,14 @@ export const EmailValidationRespData = {
   },
 };
 
+export const EmailValidationFailedRespData = {
+  status: 200,
+  data: {
+    isNewEmailValid: false,
+    rejectionReason: "the email is associated with an existing account",
+  },
+};
+
 export const UpdateUserProfileRespData = {
   status: 200,
   data: {
@@ -186,19 +194,15 @@ export const GetCurrentUserRespData = {
     profile: {
       id: 1234,
       email: "buzzl28@uwaterloo.ca",
-      classYear: 2023,
-      firstName: "Buzz",
-      lastName: "Lightyear",
-      program: {
-        id: 2,
-        code: "CE",
-        name: "Computer Engineering",
-      },
-      avatarURL: "https://avatars.githubusercontent.com/u/7363040?v=4",
-      displayName: "Buzz Lightyear",
-      bio: "the idea guy",
+      classYear: null,
+      firstName: "",
+      lastName: "",
+      program: null,
+      avatarURL: null,
+      displayName: "",
+      bio: null,
     },
-    onboardingStatus: Enums.OnboardingStatus.Step1,
+    onboardingStatus: Enums.OnboardingStatus.Step0,
     isVerified: true,
     isEligible: true,
     hasGroup: false,

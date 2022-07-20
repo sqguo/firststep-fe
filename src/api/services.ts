@@ -1,5 +1,6 @@
 import axios from "axios";
-import * as mock from "./mockData"
+import * as mock from "./mockData";
+import _ from "lodash";
 
 const base_url = process.env.SERVER_HOST;
 const is_demo = process.env.DEMO === "true";
@@ -57,6 +58,10 @@ export async function validateNewEmail(email: string): Promise<any> {
   if (is_demo) {
     console.log("POST /onboarding/validate_email")
     await new Promise(f => setTimeout(f, demo_timeout));
+    const rsuccess: boolean = _.random(0, 2) === 0;
+    if (!rsuccess) {
+      return mock.EmailValidationFailedRespData;
+    }
     return mock.EmailValidationRespData
   } else {
     return await api.post('/onboarding/validate_email', { email });

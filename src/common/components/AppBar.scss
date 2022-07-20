@@ -1,0 +1,36 @@
+@import "../styles/colors.scss";
+
+.AppBar {
+  &__wrapper {
+    div.MuiToolbar-root {
+      background-color: black;
+      color: $bg-theme;
+    }
+  }
+
+  &__profile {
+    display: flex;
+    align-items: center;    
+
+    &__avatar-container {
+        display: flex;
+        align-items: center;
+        img {
+            border-radius: 50%;
+            height: 36px;
+        }
+    }
+
+    &__name-container {
+        margin-left: 10px;
+        padding-bottom: 0px;
+        span {
+            max-width: 200px;
+            display:block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
+  }
+}

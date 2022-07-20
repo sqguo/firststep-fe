@@ -1,0 +1,51 @@
+@import "../styles/colors.scss";
+@mixin onboarding($cwidth: 400px) {
+  .onboarding__steps-container {
+    padding-top: 120px;
+    margin-bottom: 50px;
+    max-width: 950px;
+
+    .MuiStepper-root {
+      .MuiStepIcon-root.Mui-completed,
+      .MuiStepIcon-root.Mui-active {
+        color: black;
+      }
+    }
+  }
+
+  .onboarding__floating-button {
+    &__container {
+      z-index: 100;
+      position: fixed;
+      bottom: 50px;
+      max-width: $cwidth;
+      display: flex;
+      justify-content: center;
+      width: 72%;
+    }
+
+    &__submission {
+      margin-right: 15px;
+      button.MuiButtonBase-root.Mui-disabled {
+        color: rgba(0, 0, 0, 0.6);
+        background-color: rgba(0, 0, 0, 0.2);
+        box-shadow: 0px 3px 5px -1px rgb(0 0 0 / 20%),
+          0px 6px 10px 0px rgb(0 0 0 / 14%), 0px 1px 18px 0px rgb(0 0 0 / 12%);
+      }
+      .MuiCircularProgress-root {
+        color: black;
+      }
+
+      button.MuiButtonBase-root span.floating-button-text {
+        margin-left: 10px;
+      }
+    }
+
+    &__scroll-to-top {
+      button.MuiButtonBase-root {
+        color: black;
+        background-color: #ebeaeac9;
+      }
+    }
+  }
+}

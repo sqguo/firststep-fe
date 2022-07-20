@@ -1,0 +1,38 @@
+@import "../../common/styles/mixins.scss";
+@import "../../common/styles/colors.scss";
+
+.onboarding__skillsets {
+  @include onboarding(600px);
+  &__qna-container {
+    margin: 20px 10% 150px 10%;
+  }
+
+  &__skill-slider-container {
+    padding: 10px;
+    max-width: 600px;
+    width: 95%;
+    margin-top: 20px;
+    background-color: $bg-theme;
+    border-radius: 5px;
+
+    span.MuiSlider-markLabel {
+        font-size: 12px;
+    }
+    span.MuiSlider-mark {
+        width: 5px;
+        height: 5px;
+    }
+  }
+
+  &__skill-slider-header {
+    font-weight: 600;
+    font-size: 16px;
+    margin-bottom: 4px;
+  }
+
+  &__skill-slider-description {
+    margin-bottom: 20px;
+    font-weight: 300;
+    font-size: 12px;
+  }
+}

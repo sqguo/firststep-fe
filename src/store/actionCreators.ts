@@ -135,10 +135,11 @@ export function getUpdateUserProfileFailureAction(status: number, error: any): A
   };
 }
 
-export function getCurrentUserStartAction(email: string, redirectURL?: string): AnyAction {
+export function getCurrentUserStartAction(email: string, autoRedirect?: boolean, redirectURL?: string): AnyAction {
   return {
     type: actionTypes.GET_CURRENT_USER_START,
     email,
+    autoRedirect,
     redirectURL
   };
 }
@@ -205,7 +206,7 @@ export function getCurrentUserPerferencesFailureAction(status: number, error: an
   };
 }
 
-export function getUpdateUserSkillsetsStartAction(userId: number, newSkillsets: Skillset[]): AnyAction {
+export function getUpdateUserSkillsetsStartAction(userId: number, newSkillsets: UserSkillset[]): AnyAction {
   return {
     type: actionTypes.UPDATE_CURRENT_USER_SKILLSETS_START,
     payload: {
@@ -231,7 +232,7 @@ export function getUpdateUserSkillsetsFailureAction(status: number, error: any):
   };
 }
 
-export function getUpdateUserPreferencesStartAction(userId: number, newPreferences: Preference[]): AnyAction {
+export function getUpdateUserPreferencesStartAction(userId: number, newPreferences: UserPreference[]): AnyAction {
   return {
     type: actionTypes.UPDATE_CURRENT_USER_PREFERENCES_START,
     payload: {

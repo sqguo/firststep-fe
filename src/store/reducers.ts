@@ -1,6 +1,6 @@
 import { AnyAction } from "@reduxjs/toolkit";
 import * as actionTypes from "./actionTypes";
-import * as Enums from "../enums"
+import * as Enums from "../enums";
 
 const initialState: AppState = {
   currentUser: null,
@@ -25,6 +25,7 @@ const initialState: AppState = {
   errorCode: null,
   errorMessage: null,
   isNewEmailValid: false,
+  newEmailRejectionReason: null,
   isLoginModalOpen: false,
 };
 
@@ -39,7 +40,7 @@ const initialSignedInUserState: User = {
   matchingHistory: [],
   skillsets: [],
   preferences: [],
-}
+};
 
 const reducer = (
   state: AppState = initialState,
@@ -160,7 +161,8 @@ const reducer = (
       return {
         ...state,
         isVerifyingNewEmail: false,
-        isNewEmailValid: action.isNewEmailValid
+        isNewEmailValid: action.resp.isNewEmailValid,
+        newEmailRejectionReason: action.resp.rejectionReason,
       };
     }
     case actionTypes.SIGNUP_CHECK_NEW_EMAIL_FAILURE: {
@@ -176,14 +178,21 @@ const reducer = (
       };
     }
     case actionTypes.UPDATE_USER_PROFILE_SUCCESS: {
-      const currentUser = (state.currentUser === null) ? initialSignedInUserState : state.currentUser
+      const currentUser =
+        state.currentUser === null
+          ? initialSignedInUserState
+          : state.currentUser;
       return {
         ...state,
         isUpdatingUserSettings: false,
         currentUser: {
           ...currentUser,
-          profile: action.updatedProfile
-        }
+          profile: action.updatedProfile,
+          onboardingStatus:
+            currentUser.onboardingStatus <= Enums.OnboardingStatus.Step0
+              ? Enums.OnboardingStatus.Step1
+              : currentUser.onboardingStatus,
+        },
       };
     }
     case actionTypes.UPDATE_USER_PROFILE_FAILURE: {
@@ -200,13 +209,16 @@ const reducer = (
       };
     }
     case actionTypes.GET_CURRENT_USER_SUCCESS: {
-      const currentUser = (state.currentUser === null) ? initialSignedInUserState : state.currentUser
+      const currentUser =
+        state.currentUser === null
+          ? initialSignedInUserState
+          : state.currentUser;
       return {
         ...state,
         isLoadingCurrentUser: false,
         currentUser: {
           ...currentUser,
-          ...action.data
+          ...action.data,
         },
         isLoginModalOpen: false,
       };
@@ -225,14 +237,14 @@ const reducer = (
       };
     }
     case actionTypes.GET_CURRENT_USER_SKILLSETS_SUCCESS: {
-      const currentUser = state.currentUser as User
+      const currentUser = state.currentUser as User;
       return {
         ...state,
         isLoadingUserSettings: false,
         currentUser: {
           ...currentUser,
-          skillsets: action.skillsets
-        }
+          skillsets: action.skillsets,
+        },
       };
     }
     case actionTypes.GET_CURRENT_USER_SKILLSETS_FAILURE: {
@@ -249,14 +261,14 @@ const reducer = (
       };
     }
     case actionTypes.GET_CURRENT_USER_PREFERENCES_SUCCESS: {
-      const currentUser = state.currentUser as User
+      const currentUser = state.currentUser as User;
       return {
         ...state,
         isLoadingUserSettings: false,
         currentUser: {
           ...currentUser,
-          preferences: action.preferences
-        }
+          preferences: action.preferences,
+        },
       };
     }
     case actionTypes.GET_CURRENT_USER_PREFERENCES_FAILURE: {
@@ -273,14 +285,18 @@ const reducer = (
       };
     }
     case actionTypes.UPDATE_CURRENT_USER_SKILLSETS_SUCCESS: {
-      const currentUser = state.currentUser as User
+      const currentUser = state.currentUser as User;
       return {
         ...state,
         isUpdatingUserSettings: false,
         currentUser: {
           ...currentUser,
-          skillsets: action.updatedSkillsets
-        }
+          skillsets: action.updatedSkillsets,
+          onboardingStatus:
+            currentUser.onboardingStatus <= Enums.OnboardingStatus.Step1
+              ? Enums.OnboardingStatus.Step2
+              : currentUser.onboardingStatus,
+        },
       };
     }
     case actionTypes.UPDATE_CURRENT_USER_SKILLSETS_FAILURE: {
@@ -297,14 +313,18 @@ const reducer = (
       };
     }
     case actionTypes.UPDATE_CURRENT_USER_PREFERENCES_SUCCESS: {
-      const currentUser = state.currentUser as User
+      const currentUser = state.currentUser as User;
       return {
         ...state,
         isUpdatingUserSettings: false,
         currentUser: {
           ...currentUser,
-          preferences: action.updatedPreferences
-        }
+          preferences: action.updatedPreferences,
+          onboardingStatus:
+            currentUser.onboardingStatus <= Enums.OnboardingStatus.Step2
+              ? Enums.OnboardingStatus.Completed
+              : currentUser.onboardingStatus,
+        },
       };
     }
     case actionTypes.UPDATE_CURRENT_USER_PREFERENCES_FAILURE: {
@@ -321,15 +341,17 @@ const reducer = (
       };
     }
     case actionTypes.JOIN_MATCHROUND_SUCCESS: {
-      const currentUser = state.currentUser as User
-      const currentMatchround = action.data.success? action.data.currentMatchround : currentUser?.currentMatchround
+      const currentUser = state.currentUser as User;
+      const currentMatchround = action.data.success
+        ? action.data.currentMatchround
+        : currentUser?.currentMatchround;
       return {
         ...state,
         isJoiningMatchRound: false,
         currentUser: {
           ...currentUser,
-          currentMatchround
-        }
+          currentMatchround,
+        },
       };
     }
     case actionTypes.JOIN_MATCHROUND_FAILURE: {
@@ -346,15 +368,17 @@ const reducer = (
       };
     }
     case actionTypes.LEAVE_MATCHROUND_SUCCESS: {
-      const currentUser = state.currentUser as User
-      const currentMatchround = action.data.success? null : currentUser?.currentMatchround
+      const currentUser = state.currentUser as User;
+      const currentMatchround = action.data.success
+        ? null
+        : currentUser?.currentMatchround;
       return {
         ...state,
         isLeavingMatchRound: false,
         currentUser: {
           ...currentUser,
-          currentMatchround
-        }
+          currentMatchround,
+        },
       };
     }
     case actionTypes.LEAVE_MATCHROUND_FAILURE: {
@@ -371,14 +395,14 @@ const reducer = (
       };
     }
     case actionTypes.GET_GROUP_PROFILE_SUCCESS: {
-      const currentUser = state.currentUser as User
+      const currentUser = state.currentUser as User;
       return {
         ...state,
         isLoadingUserGroup: false,
         currentUser: {
           ...currentUser,
-          group: action.group
-        }
+          group: action.group,
+        },
       };
     }
     case actionTypes.GET_GROUP_PROFILE_FAILURE: {
@@ -395,16 +419,16 @@ const reducer = (
       };
     }
     case actionTypes.UPDATE_GROUP_COMMITMENT_SUCCESS: {
-      const currentUser = state.currentUser as User
-      const currentGroup = currentUser.group as Group
+      const currentUser = state.currentUser as User;
+      const currentGroup = currentUser.group as Group;
       return {
         ...state,
         isUpdatingGroupCommitment: false,
         currentUser: {
           ...currentUser,
           hasGroup: action.hasGroup,
-          group: action.group
-        }
+          group: action.group,
+        },
       };
     }
     case actionTypes.UPDATE_GROUP_COMMITMENT_FAILURE: {

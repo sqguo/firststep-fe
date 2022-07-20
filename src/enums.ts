@@ -7,9 +7,9 @@ export enum RatingType {
 
 export enum OnboardingStatus {
   NotStarted, // have not started onboarding
-  Step0, // confirmed user's basic details
-  Step1, // confirmed user's skills
-  Step2, // confirmed user's preferences
+  Step0, // tbd user's basic details
+  Step1, // tbd user's skills
+  Step2, // tbd user's preferences
   Completed, // completd onboarding
 }
 

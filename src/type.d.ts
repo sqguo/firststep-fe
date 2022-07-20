@@ -21,6 +21,7 @@ interface AppState {
 
   // TODO: refactor this
   isNewEmailValid: boolean
+  newEmailRejectionReason: string | null
   isLoginModalOpen: boolean
 }
 
@@ -43,13 +44,13 @@ interface User {
 interface UserProfile {
   id: number
   email: string
-  classYear: int
+  classYear: int | null
   firstName: string
   lastName: string
-  program: Program
-  avatarURL: string
+  program: Program | null
+  avatarURL: string | null
   displayName: string
-  bio: string
+  bio: string | null
 }
 
 interface Group {
@@ -206,4 +207,14 @@ interface groupCommitmentOptionResponse {
   userId: number,
   hasGroup: boolean,
   group: Group | null
+}
+
+
+// Utility ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+interface OnboardingStep {
+  id: number,
+  currentUrl: string,
+  nextUrl: string,
+  brief: string,
 }

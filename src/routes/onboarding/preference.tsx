@@ -6,10 +6,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 
 import "./preference.scss"
 
-interface Props {
-  preferences: string[];
-  isLoading: boolean;
-}
+interface Props {}
 
 const Preference: FunctionComponent<Props> = (props) => {
   const dispatch = useDispatch();
@@ -18,7 +15,7 @@ const Preference: FunctionComponent<Props> = (props) => {
   const name = user?.profile?.displayName || "noname";
   // supply props to small shared components, otherwise use useSelector hook instead (for page containers)
   // add additional states and actions to control app state where applicable
-  const { preferences, isLoading } = props;
+  const isLoading = false;
 
   const onButtonClick = (id: number) => {
     dispatch(getCurrentUserStartAction("843424"));
