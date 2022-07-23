@@ -7,7 +7,30 @@ const is_demo = process.env.DEMO === "true";
 const do_debug = process.env.DEBUG === "true";
 const demo_timeout = Number(process.env.DEMO_TIMEOUT);
 
-// Based on https://stackoverflow.com/questions/48819885/axios-transformrequest-how-to-alter-json-payload
+const dateTimeConverter = (data: any) => {
+  const fieldsOfInterest = [
+    "lastUpdated",
+    "currentStart",
+    "nextStart",
+    "nextEnd",
+    "dateOfCreation",
+  ];
+  const tranformDate = (obj: Record<string, unknown>) =>
+    _.transform(
+      obj,
+      (result: Record<string, unknown>, value: unknown, key: string, data) => {
+        if (typeof value === "string" && fieldsOfInterest.indexOf(key) >= 0) {
+          result[key] = new Date(value);
+        } else {
+          result[key] = _.isObject(value)
+            ? tranformDate(value as Record<string, unknown>)
+            : value;
+        }
+      }
+    );
+  return tranformDate(data);
+};
+
 const snakeCaseConverter = (data: any) => {
   const camelize = (obj: Record<string, unknown>) =>
     _.transform(
@@ -19,18 +42,19 @@ const snakeCaseConverter = (data: any) => {
           : value;
       }
     );
+  return camelize(data);
 };
 
 const api = axios.create({
   baseURL: base_url,
   timeout: 1000,
-  transformResponse: [
-    (data, headers) => {
-      const cammelCaseData = snakeCaseConverter(data);
-      do_debug && console.log("payload received", cammelCaseData);
-      return JSON.stringify(cammelCaseData);
-    },
-  ],
+});
+api.interceptors.response.use(function (response) {
+  do_debug && console.log("RESPONSE", response);
+  return {
+    ...response,
+    data: snakeCaseConverter(dateTimeConverter(response.data))
+  }
 });
 
 export async function fetchGlobalMatchingStatus(): Promise<any> {
