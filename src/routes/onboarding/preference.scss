@@ -1,5 +1,101 @@
-.preference {
-    &__header {
-        color: red;
+@import "../../common/styles/colors.scss";
+@import "../../common/styles/mixins.scss";
+
+.onboarding__preference {
+  @include onboarding(600px);
+
+  .onboarding__steps-container {
+    margin-bottom: 30px;
+    @media (max-height: 700px) {
+      margin-bottom: 15px;
     }
+  }
+
+  &__content-container {
+    max-width: 900px;
+  }
+
+  &__bottom-stepper-wrapper {
+    z-index: 100;
+    position: fixed;
+    width: 100%;
+    max-width: 900px;
+    bottom: 25px;
+    @media (max-height: 700px) {
+      bottom: 5px;
+    }
+
+    .MuiMobileStepper-root {
+      background-color: rgb(0, 0, 0, 0);
+    }
+  }
+
+  &__slider-wrapper {
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  &__slide {
+    height: 65vh;
+    width: 45vh;
+    padding: 15px;
+    border-radius: 10px;
+
+    &__picture-wrapper {
+      width: 45vh;
+      height: 30vh;
+      overflow: hidden;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      img {
+        width: 100%;
+      }
+    }
+
+    &__content {
+      height: 20vh;
+      overflow: hidden;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+
+    &__title {
+      font-size: 18px;
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+
+    &__description {
+      font-size: 12px;
+    }
+
+    &__control-container {
+      display: flex;
+      justify-content: center;
+
+      .hate-button {
+        margin-right: 10px;
+        :hover svg {
+          fill: #d6b189;
+        }
+        &.choice-button-selected svg {
+          fill: #66493c;
+        }
+
+        .hate-icon-wrapper svg {
+          width: 20px;
+          margin-top: 5px;
+        }
+      }
+      .like-button {
+        :hover svg {
+          fill: pink;
+        }
+        &.choice-button-selected svg {
+          fill: red;
+        }
+      }
+    }
+  }
 }

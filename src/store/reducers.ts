@@ -56,14 +56,14 @@ const reducer = (
     case actionTypes.GET_GLOBAL_MATCHING_STATUS_SUCCESS: {
       return {
         ...state,
-        isLoadingCurrentUser: false,
+        isLoadingMatchrounds: false,
         currentMatchrounds: action.matchRounds,
       };
     }
     case actionTypes.GET_GLOBAL_MATCHING_STATUS_FAILURE: {
       return {
         ...state,
-        isLoadingCurrentUser: false,
+        isLoadingMatchrounds: false,
         hasError: true,
       };
     }
@@ -420,7 +420,6 @@ const reducer = (
     }
     case actionTypes.UPDATE_GROUP_COMMITMENT_SUCCESS: {
       const currentUser = state.currentUser as User;
-      const currentGroup = currentUser.group as Group;
       return {
         ...state,
         isUpdatingGroupCommitment: false,
@@ -428,6 +427,7 @@ const reducer = (
           ...currentUser,
           hasGroup: action.hasGroup,
           group: action.group,
+          currentMatchround: null,
         },
       };
     }

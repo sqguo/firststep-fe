@@ -28,7 +28,7 @@ import {
 import { ThemeProvider } from "@mui/material/styles";
 
 import { LoadingScreen } from "../../common/components";
-import { onBoardingSteps, onBoardingStepsMap } from "./onboardingConfig";
+import { onBoardingStepsMap, relevantOnboardingSteps } from "./onboardingConfig";
 import theme from "../../common/styles/theme";
 import "./basicProfile.scss";
 
@@ -54,20 +54,10 @@ const BasicProfile: FunctionComponent<Props> = () => {
   );
 
   useEffect(() => {
-    document.body.style.overflow = "hidden";
     if (Object.entries(allPrograms).length == 0 || !allPrograms) {
       dispatch(actions.getAllProgramsStartAction());
     }
-    return function cleanup() {
-      document.body.style.overflow = "unset";
-    };
   }, []);
-
-  useEffect(() => {
-    if (!isLoadingConfig && Object.entries(allPrograms).length > 0) {
-      document.body.style.overflow = "unset";
-    }
-  }, [isLoadingConfig]);
 
   useEffect(() => {
     if (!isUpdating && onboardingStatus > currentStep) {
@@ -96,12 +86,6 @@ const BasicProfile: FunctionComponent<Props> = () => {
       actions.getUpdateUserProfileStartAction(newProfile.id, newProfile)
     );
   };
-
-  const relevantOnboardingSteps = onBoardingSteps.filter(
-    (step) =>
-      step.id > enums.OnboardingStatus.NotStarted &&
-      step.id <= enums.OnboardingStatus.Completed
-  );
 
   const renderGenericTextForm = (
     label: string,
@@ -284,7 +268,7 @@ const BasicProfile: FunctionComponent<Props> = () => {
 
         <div className="onboarding__floating-button__container">
           <div className="onboarding__floating-button__submission">
-            <Fab variant="extended" onClick={onSubmit} disabled={!isSubmittable || isUpdating}>
+            <Fab variant="extended" onClick={onSubmit} disabled={false && !isSubmittable || isUpdating}>
               {isUpdating ? <CircularProgress size={25} /> : <NavigationIcon />}
               <span className="floating-button-text">Submit</span>
             </Fab>

@@ -84,7 +84,7 @@ export async function getUserProfile(email: string): Promise<any> {
   if (is_demo) {
     console.log("GET /user/profile")
     await new Promise(f => setTimeout(f, demo_timeout));
-    return mock.GetCurrentUserRespData
+    return mock.GetCurrentUserRespData2;
   } else {
     return await api.get('/user/profile', {
       params: { email }

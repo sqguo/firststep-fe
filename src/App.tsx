@@ -1,7 +1,7 @@
 import React from "react";
 import { Router, Switch, Route, useRouteMatch } from "react-router-dom";
 import history from "./history";
-import { Preference, Homepage, BasicProfile, Skillset } from "./routes";
+import { Preference, Homepage, BasicProfile, Skillset, Dashboard } from "./routes";
 import { LoginModal, AppBar } from "./common/components";
 
 export default function App() {
@@ -17,7 +17,7 @@ export default function App() {
             <Onboarding />
           </Route>
           <Route path="/dashboard">
-            <h2>dashboard</h2>
+            <Dashboard />
           </Route>
           <Route path="/">
             <React.Fragment>

@@ -8,8 +8,8 @@ export const GlobalMatchingStatusRespData = {
         id: 4,
         currentStatus: Enums.MatchRoundStatus.Closed,
         nextStatus: Enums.MatchRoundStatus.Closed,
-        lastUpdated: new Date("2020-1-11T05:00:00"),
-        currentStart: new Date("2020-1-11T05:00:00"),
+        lastUpdated: new Date("2020-01-11T05:00:00"),
+        currentStart: new Date("2020-01-11T05:00:00"),
         nextStart: null,
         nextEnd: null,
       },
@@ -17,8 +17,8 @@ export const GlobalMatchingStatusRespData = {
         id: 5,
         currentStatus: Enums.MatchRoundStatus.TeamsAssigned,
         nextStatus: Enums.MatchRoundStatus.Closed,
-        lastUpdated: new Date("2022-1-11T05:00:00"),
-        currentStart: new Date("2022-1-11T05:00:00"),
+        lastUpdated: new Date("2022-01-11T05:00:00"),
+        currentStart: new Date("2022-01-11T05:00:00"),
         nextStart: new Date("2022-12-22T12:30:00"),
         nextEnd: new Date("2022-12-25T12:30:00"),
       },
@@ -26,9 +26,18 @@ export const GlobalMatchingStatusRespData = {
         id: 6,
         currentStatus: Enums.MatchRoundStatus.Open,
         nextStatus: Enums.MatchRoundStatus.Matching,
-        lastUpdated: new Date("2022-7-11T05:00:00"),
-        currentStart: new Date("2022-7-11T05:00:00"),
+        lastUpdated: new Date("2022-07-11T05:00:00"),
+        currentStart: new Date("2022-07-11T05:00:00"),
         nextStart: new Date("2023-12-22T12:30:00"),
+        nextEnd: new Date("2023-12-25T12:30:00"),
+      },
+      {
+        id: 7,
+        currentStatus: Enums.MatchRoundStatus.Upcoming,
+        nextStatus: Enums.MatchRoundStatus.Matching,
+        lastUpdated: new Date("2022-07-11T05:00:00"),
+        currentStart: new Date("2022-07-11T05:00:00"),
+        nextStart: new Date("2022-07-28T12:30:00"),
         nextEnd: new Date("2023-12-25T12:30:00"),
       },
     ],
@@ -101,7 +110,7 @@ export const GetAllPreferencesRespData = {
         description:
           "A growing share of consumer electronics sales are being conducted online. However, comparing products across different online retailers can be difficult. The objective of this project is to consolidate information across major retailers into one platform, making online shopping simpler and saving time, money, and effort. The benefit of this project is that it puts an emphasis on comparison of similar products within the same electronics category so as to allow consumers to shop for electronics when they are undecided on a particular product.",
         responseRequired: true,
-        imageUrl: "https://www.eng.uwaterloo.ca/2021-capstone-design/software/__@_@__images@_/software1_team-photo.55dda2fb4f26.png",
+        imageUrl: "https://www.eng.uwaterloo.ca/2021-capstone-design/electrical-computer/__@_@__images@_/img_7506jpg.f689534ee16c.jpeg",
         type: Enums.RatingType.TrueFalse,
       },
       {
@@ -110,7 +119,7 @@ export const GetAllPreferencesRespData = {
         description:
           "C500,000 Canadians are estimated to be affected by sight loss, and have difficulty navigating unfamiliar spaces. The objective of EyeGuide is to attach an embedded device onto a traditional white cane. This system is responsible for detecting and identifying nearby objects, providing navigation assistance and providing location sharing. The main advantage of EyeGuide is that it provides more information to the blind than the traditional white cane and does not require training unlike guide dogs.",
         responseRequired: true,
-        imageUrl: "https://www.eng.uwaterloo.ca/2021-capstone-design/software/__@_@__images@_/software1_team-photo.55dda2fb4f26.png",
+        imageUrl: "https://www.eng.uwaterloo.ca/2021-capstone-design/mechatronics/__@_@__images@_/img_4181jpg.d2563b19b721.jpeg",
         type: Enums.RatingType.TrueFalse,
       },
       {
@@ -119,7 +128,23 @@ export const GetAllPreferencesRespData = {
         description:
           "Market research has shown a rising demand in tutoring services as the percentage of students meeting provincial standards continue to decrease year-by-year. To address this, a crowd-sourced platform for private tutoring services that promotes personal engagement and immediate feedback has been created. With Tutorr, students are matched with mentors within their geographical location that possess relevant subject expertise, and a full-scale application integrated with payment services and live-chat is used to facilitate this experience seamlessly and efficiently.",
         responseRequired: true,
-        imageUrl: "https://www.eng.uwaterloo.ca/2021-capstone-design/software/__@_@__images@_/software1_team-photo.55dda2fb4f26.png",
+        imageUrl: "https://www.eng.uwaterloo.ca/2021-capstone-design/mechatronics/__@_@__images@_/tron2.a3b9e1d92018.png",
+        type: Enums.RatingType.TrueFalse,
+      },
+      {
+        id: 1003,
+        name: "AR Piano Teacher",
+        description: "In emergency situations when WiFi and cellular networks tend to break down due to either physical damage or congestion, communication via ordinary tools (SMS, messaging apps, phone calls) becomes difficult. The PETER project constructs a wireless ad-hoc network of mobile devices in which devices in close proximity communicate with each other using Bluetooth and 5 GHz Wi-Fi. The message from the source is propagated and relayed by intermediate devices to the destination.",
+        responseRequired: true,
+        imageUrl: "https://www.eng.uwaterloo.ca/2021-capstone-design/electrical-computer/__@_@__images@_/screen_shot_2021-01-26_at_105945_am.3dbba636205c.png",
+        type: Enums.RatingType.TrueFalse,
+      },
+      {
+        id: 1004,
+        name: "PETER\:Precision End-To-End Relay",
+        description: "Learning to play a new instrument such as the piano can be quite challenging. The objective of this project is to aid a student to learn to play the piano. Our proposed solution will show the student which keys to play and how long to sustain them. To achieve this, an augmented reality (AR) environment can be created using any virtual reality (VR) viewer and a smartphone. It is affordable and accessible since it only requires a smartphone, and a cardboard virtual reality viewer.",
+        responseRequired: true,
+        imageUrl: "https://www.eng.uwaterloo.ca/2021-capstone-design/mechatronics/__@_@__images@_/tron2.a3b9e1d92018.png",
         type: Enums.RatingType.TrueFalse,
       },
     ],
@@ -210,6 +235,41 @@ export const GetCurrentUserRespData = {
   },
 };
 
+export const GetCurrentUserRespData2 = {
+  status: 200,
+  data: {
+    userId: 1234,
+    profile: {
+      id: 1234,
+      email: "buzzl28@uwaterloo.ca",
+      classYear: 2023,
+      firstName: "Buzz",
+      lastName: "LightYear",
+      program: {
+        id: 0,
+        code: "CE",
+        name: "Computer Engineering",
+      },
+      avatarURL: null,
+      displayName: "Paul Ward",
+      bio: "Procrastinator, plays League",
+    },
+    onboardingStatus: Enums.OnboardingStatus.Completed,
+    isVerified: true,
+    isEligible: true,
+    hasGroup: true,
+    currentMatchround: {
+      id: 6,
+      currentStatus: Enums.MatchRoundStatus.Open,
+      nextStatus: Enums.MatchRoundStatus.Matching,
+      lastUpdated: new Date("2022-7-11T05:00:00"),
+      currentStart: new Date("2022-7-11T05:00:00"),
+      nextStart: new Date("2023-12-22T12:30:00"),
+      nextEnd: new Date("2023-12-25T12:30:00"),
+    },
+  },
+};
+
 export const GetCurrentUserSkillsetsRespData = {
   status: 200,
   data: {
@@ -249,15 +309,15 @@ export const GetCurrentUserPreferencesRespData = {
     userId: 1234,
     preferences: [
       {
-        attributeId: 1000,
-        data: true,
-      },
-      {
-        attributeId: 1001,
+        attributeId: 1002,
         data: false,
       },
       {
-        attributeId: 1002,
+        attributeId: 1003,
+        data: true,
+      },
+      {
+        attributeId: 1004,
         data: true,
       },
     ],
@@ -351,7 +411,7 @@ export const GetGroupProfileRespData = {
     userId: 1236,
     group: {
       id: 97,
-      name: "loser's club",
+      name: "Loser's Club",
       isGroupPermanent: false,
       dateOfCreation: new Date("2021-12-25T12:30:00"),
       members: [
@@ -366,7 +426,7 @@ export const GetGroupProfileRespData = {
             code: "CE",
             name: "Computer Engineering",
           },
-          avatarURL: "https://avatars.githubusercontent.com/u/7363040?v=4",
+          avatarURL: null,
           displayName: "Buzz Lightyear",
           bio: "the idea guy, you haven't heard from him since the first meeting, will show up on demo day",
         },
@@ -381,7 +441,7 @@ export const GetGroupProfileRespData = {
             code: "EE",
             name: "Electrical Engineering",
           },
-          avatarURL: "https://avatars.githubusercontent.com/u/7363040?v=4",
+          avatarURL: null,
           displayName: "Pual Ward",
           bio: "the leader, will setup meeting with prof to discuss report page argin size, makes powerpoints",
         },
@@ -396,7 +456,7 @@ export const GetGroupProfileRespData = {
             code: "CE",
             name: "Computer Engineering",
           },
-          avatarURL: "https://avatars.githubusercontent.com/u/7363040?v=4",
+          avatarURL: null,
           displayName: "C3PO",
           bio: "the developer, will take a month to print Hello World, hardcodes everything",
         },
@@ -411,7 +471,7 @@ export const GetGroupProfileRespData = {
             code: "EE",
             name: "Electric Engineering",
           },
-          avatarURL: "https://avatars.githubusercontent.com/u/7363040?v=4",
+          avatarURL: "https://imageio.forbes.com/specials-images/imageserve/60f6bb455053b426096f1487/Destiny-2/960x0.jpg?format=jpg&width=960",
           displayName: "Buzz Lightyear",
           bio: "the C-suite executive, will attend every standup for some reason, insists you use nosql",
         },
@@ -426,7 +486,7 @@ export const GetGroupProfileRespData = {
             code: "SE",
             name: "Software Engineering",
           },
-          avatarURL: "https://avatars.githubusercontent.com/u/7363040?v=4",
+          avatarURL: null,
           displayName: "indiana jaws",
           bio: "the Fixer, plays league everyday with the developer, his branch is 2 months behind",
         },

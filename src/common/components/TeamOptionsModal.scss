@@ -1,0 +1,75 @@
+@import "../styles/colors.scss";
+@import "../styles/Modal.scss";
+
+.team-options-modal {
+  &__content-container {
+    @extend %modal-content-container;
+    background-color: $bg-theme;
+  }
+
+//   &__choice-container,
+//   &__signup-container {
+//     button.MuiButton-root:not(.Mui-disabled) {
+//       background-color: black;
+//       span.MuiCircularProgress-root {
+//         color: white;
+//       }
+//     }
+//   }
+
+//   &__signup-container.signup-success-container {
+//     p.MuiFormHelperText-root {
+//       color: black;
+//     }
+//     button.MuiButton-root svg.MuiSvgIcon-root {
+//       color: black;
+//     }
+//   }
+
+  &__title-container {
+    height: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    svg {
+        font-size: 60px
+    }
+    span {
+        font-size: 15px;
+        width: 75%;
+    }
+  }
+
+  &__close-button-container {
+    @extend %modal-action-button-container;
+  }
+
+  &__close-button {
+    @extend %modal-action-button;
+  }
+
+  &__leave-choice-block {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    button.MuiButton-root {
+        width: 120px;
+    }
+  }
+
+  &__stay-choice-block {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    button.MuiButton-root {
+        width: 120px;
+    }
+  }
+}

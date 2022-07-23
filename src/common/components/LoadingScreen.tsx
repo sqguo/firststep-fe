@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useEffect } from "react";
 import { CircularProgress } from "@mui/material";
 import "./LoadingScreen.scss";
 
@@ -8,6 +8,17 @@ interface Props {
 
 const Preference: FunctionComponent<Props> = (props) => {
   const { isLoading } = props;
+
+  useEffect(() => {
+    if (isLoading) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return function cleanup() {
+      document.body.style.overflow = "unset";
+    };
+  }, [isLoading])
 
   return (
     <React.Fragment>

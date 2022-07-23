@@ -50,9 +50,9 @@ module.exports = function (_env, argv) {
           ],
         },
         {
-          test: /\.svg$/,
+          test: /\.svg$/i,
           issuer: /\.[jt]sx?$/,
-          use: ["@svgr/webpack"],
+          use: [{ loader: '@svgr/webpack', options: { typescript: true } }],
         },
         {
           rules: [

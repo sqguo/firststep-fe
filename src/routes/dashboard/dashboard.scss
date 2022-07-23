@@ -1,0 +1,92 @@
+@import "../../common/styles/colors.scss";
+.dashboard {
+  &__content-container {
+    padding-top: 70px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 30px;
+  }
+
+  &__standard-content-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+  }
+
+  &__standard-content {
+    border-radius: 50%;
+    width: max(40vh, 300px);
+    height: max(40vh, 300px);
+    background-color: $bg-theme;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    span {
+      width: 80%;
+      text-align: center;
+      font-weight: 300;
+    }
+  }
+
+  &__joinable__content,
+  &__leavable__content {
+    span {
+      margin-bottom: 15px;
+    }
+  }
+
+  &__upcoming__content {
+    span {
+      margin-bottom: 5px;
+    }
+  }
+
+  &__countdown__content {
+    font-size: 27px;
+    font-weight: 400 !important;
+  }
+
+  &__teaming__content {
+    &__prompt-primary {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+    &__prompt-secondary {
+      font-size: 10px;
+      font-weight: 300;
+      button.MuiButton-root {
+        color: purple;
+        font-size: 10px;
+        padding: 2px;
+        font-weight: 300;
+      }
+    }
+    &__teams-container {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      padding-bottom: 10px;
+
+      .MuiAvatar-root {
+        width: 60px;
+        height: 60px;
+      }
+    }
+
+    &__avatar-wrapper {
+      margin: 3px;
+      border-radius: 50%;
+      &:hover {
+        cursor: pointer;
+        box-shadow: 5px 11px 50px -16px black;
+      }
+    }
+  }
+}

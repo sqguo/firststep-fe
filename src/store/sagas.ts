@@ -192,6 +192,20 @@ function* getGroupProfile({ userId }: AnyAction) {
   }
 }
 
+function* updateGroupCommitmemt({ payload }: AnyAction) {
+  try {
+    const { data } = yield call(apiService.updateGroupCommitment, payload);
+    yield put(actionCreators.getUpdateGroupCommitmentSuccessAction(data));
+  } catch (err: any) {
+    yield put(
+      actionCreators.getUpdateGroupCommitmentFailureAction(
+        parseErrorCode(err),
+        err
+      )
+    );
+  }
+}
+
 function* rootSaga() {
   yield all([
     takeLatest(
@@ -223,6 +237,10 @@ function* rootSaga() {
     takeLeading(actionTypes.JOIN_MATCHROUND_START, joinMatchround),
     takeLeading(actionTypes.LEAVE_MATCHROUND_START, leaveMatchround),
     takeLatest(actionTypes.GET_GROUP_PROFILE_START, getGroupProfile),
+    takeLatest(
+      actionTypes.UPDATE_GROUP_COMMITMENT_START,
+      updateGroupCommitmemt
+    ),
   ]);
 }
 

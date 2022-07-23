@@ -37,3 +37,9 @@ export const onBoardingStepsMap: Record<number, OnboardingStep> = {};
 onBoardingSteps.forEach((step) => {
   onBoardingStepsMap[step.id] = step;
 });
+
+export const relevantOnboardingSteps =onBoardingSteps.filter(
+  (step) =>
+    step.id > enums.OnboardingStatus.NotStarted &&
+    step.id <= enums.OnboardingStatus.Completed
+);

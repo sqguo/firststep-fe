@@ -24,7 +24,7 @@ import {
 import { ThemeProvider } from "@mui/material/styles";
 
 import { LoadingScreen } from "../../common/components";
-import { onBoardingSteps, onBoardingStepsMap } from "./onboardingConfig";
+import { onBoardingStepsMap, relevantOnboardingSteps } from "./onboardingConfig";
 import theme from "../../common/styles/theme";
 import "./skillsets.scss";
 
@@ -47,7 +47,7 @@ const skillsets: FunctionComponent<Props> = () => {
     (state: AppState) => state.isUpdatingUserSettings
   );
   const isLoadingConfig = useSelector(
-    (state: AppState) => state.isLoadingOnboardingConfigration
+    (state: AppState) => state.isLoadingOnboardingConfigration || state.isLoadingUserSettings
   );
   const prevSkillsets = useSelector(
     (state: AppState) => state.currentUser?.skillsets as UserSkillset[]
@@ -62,36 +62,38 @@ const skillsets: FunctionComponent<Props> = () => {
     (state: AppState) => state.onboardingConfiguration.skillsets
   );
 
-  const relevantOnboardingSteps = onBoardingSteps.filter(
-    (step) =>
-      step.id > enums.OnboardingStatus.NotStarted &&
-      step.id <= enums.OnboardingStatus.Completed
-  );
   const [newSkillsets, setNewSkillsets] = useState(
+    {} as Record<number, UserSkillset>
+  );
+  const [cachedDefaultSkillsets, setCachedDefaultSkillsets] = useState(
     {} as Record<number, UserSkillset>
   );
 
   useEffect(() => {
-    document.body.style.overflow = "hidden";
     if (Object.entries(allSkillsets).length == 0 || !allSkillsets) {
       dispatch(actions.getAllSillsetsStartAction());
     }
-    return function cleanup() {
-      document.body.style.overflow = "unset";
-    };
+    if (Object.entries(prevSkillsets).length == 0) {
+      dispatch(actions.getCurrentUserSkillsetsStartAction(userId));
+    }
   }, []);
 
   useEffect(() => {
     if (!isLoadingConfig && Object.entries(allSkillsets).length > 0) {
-      document.body.style.overflow = "unset";
+      const prevSkillMap: Record<number, UserSkillset> = {};
+      Object.entries(prevSkillsets).forEach((e) => {
+        prevSkillMap[e[1].attributeId] = e[1];
+      })
       const initSkillsets: Record<number, UserSkillset> = {};
       Object.entries(allSkillsets).forEach((e) => {
+        const curSkill: UserSkillset | null = prevSkillMap[e[1].id];
         initSkillsets[e[1].id] = {
           attributeId: e[1].id,
-          data: 5,
+          data: curSkill ? Number(curSkill.data) : 5,
         };
       });
       setNewSkillsets(initSkillsets);
+      setCachedDefaultSkillsets(_.cloneDeep(initSkillsets));
     }
   }, [isLoadingConfig]);
 
@@ -129,7 +131,7 @@ const skillsets: FunctionComponent<Props> = () => {
           {skill.description}
         </div>
         <Slider
-          defaultValue={5}
+          defaultValue={Number(cachedDefaultSkillsets[skill.id].data)}
           aria-label="Default"
           valueLabelDisplay="auto"
           step={0.1}
