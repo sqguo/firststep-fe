@@ -22,7 +22,7 @@ function LandingPageButton() {
     return (<Link to="/about" style={{ textDecoration: 'none' }}>
       <ThemeProvider theme={theme}>
         <Button variant="contained" size="large" className="homepage__button" >
-            Find your FYDP team now
+            About Us
         </Button>
         </ThemeProvider>
     </Link>
