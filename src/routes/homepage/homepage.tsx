@@ -22,7 +22,7 @@ export default Homepage;
 
 function LandingPageButton() {
     return (<Link to="/about" className="nav-link">
-        <button className="btn btn-primary" > 
+        <button className="homepage__button" > 
             <span style={{"fontSize": "24px"}}>
                 Click Me!
             </span>
@@ -31,11 +31,7 @@ function LandingPageButton() {
     );
 }
 function LandingFrameMessage() {
-    const style = {
-        margin: "auto",
-        padding: "10% 35% 10% 15%",
-        color: "black"
-    }
+
     return <div className="homepage__landing-page">
         
         <div className="homepage__landing-page__title">
