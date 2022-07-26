@@ -3,8 +3,8 @@
   &__landing-page {
     margin: "auto";
     color: "black";
-    padding-top: 70px;
-    padding-left: 30px;
+    padding-top: 220px;
+    padding-left: 60px;
     padding-right: 30px;
     padding-bottom: 30px;
     justify-content: center;
@@ -12,6 +12,7 @@
 
     &__title {
         font-size: 96px;
+        font-weight: 500;
     }
   
     &__infobox {
@@ -19,14 +20,14 @@
     }
 
     &__button {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+        margin-bottom: 20px;
         font-size: 10px;
         font-weight: 300;
-        button.MuiButton-root {
-          color: purple;
-          font-size: 10px;
-          padding: 2px;
-          font-weight: 300;
-        }
+        color: black;
       }
 
   }

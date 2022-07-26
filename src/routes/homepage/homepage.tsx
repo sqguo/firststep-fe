@@ -3,9 +3,8 @@ import {Link} from "react-router-dom"
 import { Button, Avatar } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import "./homepage.scss";
-
+import theme from "../../common/styles/theme";
 const bgimage = require("../../assets/firststep_bg.jpg");
-
 interface Props {}
 
 const Homepage: FunctionComponent<Props> = () => {
@@ -21,12 +20,12 @@ export default Homepage;
 
 
 function LandingPageButton() {
-    return (<Link to="/about" className="nav-link">
-        <button className="homepage__button" > 
-            <span style={{"fontSize": "24px"}}>
-                Click Me!
-            </span>
-        </button>
+    return (<Link to="/about" style={{ textDecoration: 'none' }}>
+      <ThemeProvider theme={theme}>
+        <Button variant="contained" size="large" className="homepage__button" >
+            Find your FYDP team now
+        </Button>
+        </ThemeProvider>
     </Link>
     );
 }
