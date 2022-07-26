@@ -4,7 +4,6 @@ import { Button, Avatar } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import "./homepage.scss";
 import theme from "../../common/styles/theme";
-const bgimage = require("../../assets/firststep_bg.jpg");
 interface Props {}
 
 const Homepage: FunctionComponent<Props> = () => {

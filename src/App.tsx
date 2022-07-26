@@ -1,7 +1,7 @@
 import React from "react";
 import { Router, Switch, Route, useRouteMatch } from "react-router-dom";
 import history from "./history";
-import { Preference, Homepage, BasicProfile, Skillset, Dashboard } from "./routes";
+import { Preference, Homepage, BasicProfile, Skillset, Dashboard, About } from "./routes";
 import { LoginModal, AppBar } from "./common/components";
 
 export default function App() {
@@ -11,7 +11,7 @@ export default function App() {
       <Router history={history}>
         <Switch>
           <Route exact path="/about">
-            <h2>about</h2>
+            <About />
           </Route>
           <Route path="/onboarding">
             <Onboarding />
