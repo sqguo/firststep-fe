@@ -1,0 +1,169 @@
+@import "../../common/styles/colors.scss";
+.homepage {
+  &__landing-page {
+    margin: "auto";
+    color: "black";
+    padding-top: 220px;
+    padding-left: 60px;
+    padding-right: 30px;
+    padding-bottom: 30px;
+    justify-content: center;
+    align-items: center;
+
+    &__title {
+        font-size: 96px;
+        font-weight: 500;
+    }
+  
+    &__info-box-top {
+        background: #ffffff none repeat scroll 0 0;
+        border-color: #808080;
+        border-style: inset;
+        border-width: 0px 0px 0px 15px;
+        color: black;
+        font-size: 20px;
+        padding: 20px;
+        width:500px;
+        margin:50px ;
+        margin-top: -15%;
+        float:right;
+        top:-40px;
+        border-radius: 5px;
+    }
+
+    &__info-box-mid {
+        background: #ffffff none repeat scroll 0 0;
+        border-color: #808080;
+        border-style: inset;
+        border-width: 0px 0px 0px 15px;
+        color: black;
+        font-size: 20px;
+        padding: 20px;
+        width:500px;
+        margin:50px ;
+        margin-top: -5%;
+        float:right;
+        top:-40px;
+        border-radius: 5px;
+    }
+
+    &__info-box-bot {
+        background: #ffffff none repeat scroll 0 0;
+        border-color: #808080;
+        border-style: inset;
+        border-width: 0px 0px 0px 15px;
+        color: black;
+        font-size: 20px;
+        padding: 20px;
+        width:500px;
+        margin:50px ;
+        margin-top: 0%;
+        margin-left: 10%;
+        float:right;
+        top:-40px;
+        border-radius: 5px;
+    }
+
+    &__button {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        font-size: 10px;
+        font-weight: 300;
+        color: black;
+      }
+
+  }
+
+  &__bg-image {
+    background-image: url("../../assets/firststep_bg_edited.jpg");
+    background-repeat: "no-repeat";
+    background-size: "cover";
+    position: "absolute";
+    height: 100vh;
+    width: "100%";
+
+  }
+  &__content-container {
+    padding-top: 70px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 30px;
+  }
+
+  &__standard-content-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+  }
+
+  &__standard-content {
+    border-radius: 50%;
+    width: max(40vh, 300px);
+    height: max(40vh, 300px);
+    background-color: $bg-theme;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    span {
+      width: 80%;
+      text-align: center;
+      font-weight: 300;
+    }
+  }
+
+  &__joinable__content,
+  &__leavable__content {
+    span {
+      margin-bottom: 15px;
+    }
+  }
+
+  &__upcoming__content {
+    span {
+      margin-bottom: 5px;
+    }
+  }
+
+  &__countdown__content {
+    font-size: 27px;
+    font-weight: 400 !important;
+  }
+
+  &__teaming__content {
+    &__prompt-primary {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    &__teams-container {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      padding-bottom: 10px;
+
+      .MuiAvatar-root {
+        width: 60px;
+        height: 60px;
+      }
+    }
+
+    &__avatar-wrapper {
+      margin: 3px;
+      border-radius: 50%;
+      &:hover {
+        cursor: pointer;
+        box-shadow: 5px 11px 50px -16px black;
+      }
+    }
+  }
+}
