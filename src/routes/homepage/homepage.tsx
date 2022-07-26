@@ -34,16 +34,25 @@ function LandingFrameMessage() {
     return <div className="homepage__landing-page">
         
         <div className="homepage__landing-page__title">
-            Hello World!!
+            FirstStep
+        </div>
+
+        <LandingPageButton />
+
+        
+        <div className="homepage__landing-page__info-box-top">
+            Sign up and indicate your skills and preferences for the project
+        </div>
+
+        <div className="homepage__landing-page__info-box-mid">
+            Wait for a match ... Next Round begins in <b>12 hours</b> and <b>45 minutes</b>
         </div>
         
-        <div className="homepage__landing-page__info-box">
-            This is the landing page and here's some content.
-            How much wood would a woodchuck chuck if a 
-            woodchuck would chuck wood?
+        <div className="homepage__landing-page__info-box-bot">
+            Talk to your new FYDP team! its that simple
         </div>
         <br />
-        <LandingPageButton />
+
     </div>
 }
 function LandingFrame() {

@@ -15,8 +15,53 @@
         font-weight: 500;
     }
   
-    &__infobox {
-        font-size: 36px;
+    &__info-box-top {
+        background: #ffffff none repeat scroll 0 0;
+        border-color: #808080;
+        border-style: inset;
+        border-width: 0px 0px 0px 15px;
+        color: black;
+        font-size: 20px;
+        padding: 20px;
+        width:500px;
+        margin:50px ;
+        margin-top: -15%;
+        float:right;
+        top:-40px;
+        border-radius: 5px;
+    }
+
+    &__info-box-mid {
+        background: #ffffff none repeat scroll 0 0;
+        border-color: #808080;
+        border-style: inset;
+        border-width: 0px 0px 0px 15px;
+        color: black;
+        font-size: 20px;
+        padding: 20px;
+        width:500px;
+        margin:50px ;
+        margin-top: -5%;
+        float:right;
+        top:-40px;
+        border-radius: 5px;
+    }
+
+    &__info-box-bot {
+        background: #ffffff none repeat scroll 0 0;
+        border-color: #808080;
+        border-style: inset;
+        border-width: 0px 0px 0px 15px;
+        color: black;
+        font-size: 20px;
+        padding: 20px;
+        width:500px;
+        margin:50px ;
+        margin-top: 0%;
+        margin-left: 10%;
+        float:right;
+        top:-40px;
+        border-radius: 5px;
     }
 
     &__button {
