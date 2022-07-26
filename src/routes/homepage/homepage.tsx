@@ -1,5 +1,8 @@
 import React, { FunctionComponent } from "react";
 import {Link} from "react-router-dom"
+import { Button, Avatar } from "@mui/material";
+import { ThemeProvider } from "@mui/material/styles";
+import "./homepage.scss";
 
 const bgimage = require("../../assets/firststep_bg.jpg");
 
@@ -33,13 +36,13 @@ function LandingFrameMessage() {
         padding: "10% 35% 10% 15%",
         color: "black"
     }
-    return <div style={style}>
+    return <div className="homepage__landing-page">
         
-        <div style={{"fontSize": "96px"}}>
+        <div className="homepage__landing-page__title">
             Hello World!!
         </div>
         
-        <div style={{"fontSize": "36px"}}>
+        <div className="homepage__landing-page__info-box">
             This is the landing page and here's some content.
             How much wood would a woodchuck chuck if a 
             woodchuck would chuck wood?
@@ -49,15 +52,7 @@ function LandingFrameMessage() {
     </div>
 }
 function LandingFrame() {
-    return (<div style={{
-      "backgroundImage": `url(${bgimage})`,
-      "backgroundRepeat": "no-repeat",
-      "backgroundSize": "cover",
-      position: "absolute",
-      height: "100%",
-      width: "100%"
-    }}>
-
+    return (<div className="homepage__bg-image">
         <LandingFrameMessage />
     </div>
     );
