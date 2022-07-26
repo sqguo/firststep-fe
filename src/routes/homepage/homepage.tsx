@@ -1,4 +1,5 @@
 import React, { FunctionComponent } from "react";
+import {Link} from "react-router-dom"
 
 interface Props {}
 
@@ -13,12 +14,11 @@ const Homepage: FunctionComponent<Props> = () => {
 
 export default Homepage;
 
-import {Link} from "react-router-dom"
 
 function LandingPageButton() {
-    return <Link to="/about" class="nav-link">
-        <button class="btn btn-primary" > 
-            <span style={{"font-size": "24px"}}>
+    return <Link to="/about" className="nav-link">
+        <button className="btn btn-primary" > 
+            <span style={{"fontSize": "24px"}}>
                 Click Me!
             </span>
         </button>
@@ -28,15 +28,15 @@ function LandingFrameMessage() {
     const style = {
         margin: "auto",
         padding: "10% 35% 10% 15%",
-        color: "white"
+        color: "black"
     }
     return <div style={style}>
         
-        <div style={{"font-size": "96px"}}>
+        <div style={{"fontSize": "96px"}}>
             Hello World!!
         </div>
         
-        <div style={{"font-size": "36px"}}>
+        <div style={{"fontSize": "36px"}}>
             This is the landing page and here's some content.
             How much wood would a woodchuck chuck if a 
             woodchuck would chuck wood?
