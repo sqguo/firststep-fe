@@ -1,7 +1,7 @@
 import React from "react";
 import { Router, Switch, Route, useRouteMatch } from "react-router-dom";
 import history from "./history";
-import { Preference, Homepage, BasicProfile, Skillset, Dashboard, About } from "./routes";
+import { Preference, Homepage, BasicProfile, Skillset, Dashboard, About, WaitingPage } from "./routes";
 import { LoginModal, AppBar } from "./common/components";
 
 export default function App() {
@@ -45,8 +45,8 @@ function Onboarding() {
         <Route exact path={`${path}/profile`}>
           <BasicProfile />
         </Route>
-        <Route exact path="/">
-          <h2>onboarding</h2>
+        <Route exact path={`${path}/`}>
+          <WaitingPage />
         </Route>
       </Switch>
     </div>

@@ -1,9 +1,5 @@
 import React, { FunctionComponent } from "react";
-import { Button, Avatar } from "@mui/material";
-import { ThemeProvider } from "@mui/material/styles";
 import "./about.scss";
-import theme from "../../common/styles/theme";
-const bgimage = require("../../assets/firststep_bg.jpg");
 interface Props {}
 
 const About: FunctionComponent<Props> = () => {
