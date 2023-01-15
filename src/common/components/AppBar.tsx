@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getOpenLoginModalAction } from "../../store/actionCreators";
+import history from "../../history";
 
 import {
   Box,
@@ -28,9 +29,14 @@ export default function MyAppBar() {
     dispatch(getOpenLoginModalAction());
   };
 
+  // TODO: REMOVE DEVELOPMENT CONFIG
+  const onNavigateToDashboard = () => {
+    history.push("/dashboard");
+  }
+
   const renderProfile = () => {
     return (
-        <div className="AppBar__profile">
+        <div className="AppBar__profile" onClick={onNavigateToDashboard}>
             <div className="AppBar__profile__avatar-container">
                 <img src={ avatarURL || defaultProfile }></img>
             </div>

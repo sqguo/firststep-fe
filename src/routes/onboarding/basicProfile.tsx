@@ -268,7 +268,7 @@ const BasicProfile: FunctionComponent<Props> = () => {
 
         <div className="onboarding__floating-button__container">
           <div className="onboarding__floating-button__submission">
-            <Fab variant="extended" onClick={onSubmit} disabled={false && !isSubmittable || isUpdating}>
+            <Fab variant="extended" onClick={onSubmit} disabled={!isSubmittable || isUpdating}>
               {isUpdating ? <CircularProgress size={25} /> : <NavigationIcon />}
               <span className="floating-button-text">Submit</span>
             </Fab>
