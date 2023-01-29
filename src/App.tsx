@@ -6,9 +6,8 @@ import { LoginModal, AppBar } from "./common/components";
 
 export default function App() {
   return (
-    <React.Fragment>
-      <AppBar />
       <Router history={history}>
+        <AppBar />
         <Switch>
           <Route exact path="/about">
             <About />
@@ -27,7 +26,6 @@ export default function App() {
           </Route>
         </Switch>
       </Router>
-    </React.Fragment>
   );
 }
 

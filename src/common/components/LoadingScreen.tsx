@@ -6,7 +6,7 @@ interface Props {
   isLoading: boolean;
 }
 
-const Preference: FunctionComponent<Props> = (props) => {
+const LoadingScreen: FunctionComponent<Props> = (props) => {
   const { isLoading } = props;
 
   useEffect(() => {
@@ -33,4 +33,4 @@ const Preference: FunctionComponent<Props> = (props) => {
   );
 };
 
-export default Preference;
+export default LoadingScreen;
