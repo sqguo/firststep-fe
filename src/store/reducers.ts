@@ -1,3 +1,4 @@
+import _ from "lodash";
 import { AnyAction } from "@reduxjs/toolkit";
 import * as actionTypes from "./actionTypes";
 import * as Enums from "../enums";
@@ -54,10 +55,19 @@ const reducer = (
       };
     }
     case actionTypes.GET_GLOBAL_MATCHING_STATUS_SUCCESS: {
+      const userMatchround = state.currentUser?.currentMatchround;
       return {
         ...state,
         isLoadingMatchrounds: false,
         currentMatchrounds: action.matchRounds,
+        currentUser: userMatchround
+          ? {
+              ...(state.currentUser as User),
+              currentMatchround: _.find(action.matchRounds, {
+                id: userMatchround.id,
+              }),
+            }
+          : state.currentUser,
       };
     }
     case actionTypes.GET_GLOBAL_MATCHING_STATUS_FAILURE: {
