@@ -83,6 +83,7 @@ module.exports = function (_env, argv) {
         overlay: true,
       },
       historyApiFallback: true,
+      allowedHosts: "all",
     },
   };
 };
