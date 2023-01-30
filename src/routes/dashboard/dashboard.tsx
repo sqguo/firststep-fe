@@ -89,6 +89,7 @@ const Dashboard: FunctionComponent<Props> = () => {
   const [isChoiceModalOpen, setIsChoiceModalOpen] = useState(false);
 
   useEffect(() => {
+    dispatch(actions.getCurrentUserStartAction(userProfile.email))
     dispatch(actions.getGroupProfileStartAction(userProfile.id));
     dispatch(actions.getGlobalMatchingStatusStartAction());
   }, []);
