@@ -1,6 +1,7 @@
 const path = require("path");
 const Dotenv = require("dotenv-webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = function (_env, argv) {
   const isProduction = argv.mode === "production";
@@ -8,7 +9,7 @@ module.exports = function (_env, argv) {
   return {
     entry: "./src/index.tsx",
     plugins: [
-      new Dotenv(),
+      new Dotenv({ path: isProduction? './.env': './.local.env' }),
       isProduction &&
         new MiniCssExtractPlugin({
           filename: "assets/css/[name].[contenthash:8].css",
