@@ -14,6 +14,8 @@ import {
 import { ThemeProvider } from "@mui/material/styles";
 import "./homepage.scss";
 import theme from "../../common/styles/theme";
+import moment from "moment";
+
 interface Props {}
 
 const Homepage: FunctionComponent<Props> = () => {
@@ -32,6 +34,24 @@ function LandingFrameMessage() {
     const [ open, setOpen ] = useState(false);
 
     const handleClose = () => setOpen(false)
+    let currentTime = moment();
+
+    let nextMatchMinuteDelta;
+    // before reset today
+    if (currentTime.utc().hour() < 17) {
+        nextMatchMinuteDelta = moment().utc().set('hour', 17).set('minutes', 0).diff(currentTime, 'minutes');
+    } else {
+        // after reset today
+        nextMatchMinuteDelta = moment().utc().add(1, 'day').set('hour', 17).set('minutes', 0).diff(currentTime, 'minutes');
+    }
+
+    const hours = Math.floor(nextMatchMinuteDelta / 60);
+    const minutes = nextMatchMinuteDelta % 60;
+
+    const nextRoundContent = <>
+        Wait for a match... Next round begins in {" "}
+        <strong>{hours} {hours == 1 ? "hour" : "hours"}</strong> and {" "}
+        <strong>{minutes} {minutes == 1 ? "minute" : "minutes"}</strong>.</>;
 
     return <Box display="flex" flexDirection="row" px={10} flexWrap="wrap" alignItems="center" height={0.8}>
         
@@ -48,8 +68,8 @@ function LandingFrameMessage() {
         </Box>
 
         <Box flex-direction="row" flex={1}>
-            <InfoCard content="Sign up and indicate your skills and preferences for the project" />
-            <InfoCard content={<>Wait for a match ... Next Round begins in <b>12 hours</b> and <b>45 minutes</b></>}></InfoCard>
+            <InfoCard content="Sign up and indicate your skills and preferences for the project." />
+            <InfoCard content={nextRoundContent}></InfoCard>
             <InfoCard content="Talk to your new FYDP team! It's that simple."></InfoCard>
         </Box>
 
