@@ -1,6 +1,16 @@
-import React, { FunctionComponent } from "react";
+import React, {FunctionComponent, useState} from "react";
 import {Link} from "react-router-dom"
-import { Button, Avatar } from "@mui/material";
+import {
+    Button,
+    Avatar,
+    Box,
+    Typography,
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    IconButton,
+    DialogActions
+} from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import "./homepage.scss";
 import theme from "../../common/styles/theme";
@@ -17,46 +27,72 @@ const Homepage: FunctionComponent<Props> = () => {
 
 export default Homepage;
 
-
-function LandingPageButton() {
-    return (<Link to="/about" style={{ textDecoration: 'none' }}>
-      <ThemeProvider theme={theme}>
-        <Button variant="contained" size="large" className="homepage__button" >
-            About Us
-        </Button>
-        </ThemeProvider>
-    </Link>
-    );
-}
 function LandingFrameMessage() {
 
-    return <div className="homepage__landing-page">
+    const [ open, setOpen ] = useState(false);
+
+    const handleClose = () => setOpen(false)
+
+    return <Box display="flex" flexDirection="row" px={10} flexWrap="wrap" alignItems="center" height={0.8}>
         
-        <div className="homepage__landing-page__title">
-            FirstStep
-        </div>
+        <Box flex-direction="column" flex={1}>
+            <Typography variant="h1" sx={{ fontWeight: 400 }}>
+                FirstStep
+            </Typography>
 
-        <LandingPageButton />
+            <ThemeProvider theme={theme}>
+                <Button variant="contained" size="large" className="homepage__button" onClick={() => setOpen(true)}>
+                    About Us
+                </Button>
+            </ThemeProvider>
+        </Box>
 
-        
-        <div className="homepage__landing-page__info-box-top">
-            Sign up and indicate your skills and preferences for the project
-        </div>
+        <Box flex-direction="row" flex={1}>
+            <InfoCard content="Sign up and indicate your skills and preferences for the project" />
+            <InfoCard content={<>Wait for a match ... Next Round begins in <b>12 hours</b> and <b>45 minutes</b></>}></InfoCard>
+            <InfoCard content="Talk to your new FYDP team! It's that simple."></InfoCard>
+        </Box>
 
-        <div className="homepage__landing-page__info-box-mid">
-            Wait for a match ... Next Round begins in <b>12 hours</b> and <b>45 minutes</b>
-        </div>
-        
-        <div className="homepage__landing-page__info-box-bot">
-            Talk to your new FYDP team! its that simple
-        </div>
-        <br />
+        <Dialog open={open} onClose={handleClose}>
+            <DialogTitle>About Us</DialogTitle>
+            <DialogContent>
+                <Box display="flex" flexDirection="column" flexWrap="wrap">
+                    <span>Project created by FYDP Group 58</span>
+                    <span>For more inquiries, please contact support@uwfs.live</span>
+                </Box>
+            </DialogContent>
+            <DialogActions>
+                <Button href="mailto:support@uwfs.live">Send Email</Button>
+                <Button onClick={handleClose}>OK</Button>
+            </DialogActions>
+        </Dialog>
 
-    </div>
+    </Box>
 }
 function LandingFrame() {
     return (<div className="homepage__bg-image">
         <LandingFrameMessage />
     </div>
     );
+}
+
+interface InfoCardProps {
+    content: any;
+}
+
+const InfoCard: FunctionComponent<InfoCardProps> = ({content, ...props}) => {
+    return (
+        <Box sx={{
+            background: "#ffffff none repeat scroll 0 0",
+            borderColor: "#808080",
+            borderStyle: "inset",
+            borderWidth: "0px 0px 0px 15px",
+            color: "black",
+            fontSize: 20,
+            borderRadius: "5px",
+            width: 0.8,
+        }} p={3} my={1}>
+            {content}
+        </Box>
+    )
 }

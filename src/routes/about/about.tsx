@@ -25,7 +25,7 @@ function AboutMessage() {
             Project created by: 
              FYDP Group 58
             <br></br>
-            For more inquiries, please contact help@FirstStep.ca
+            For more inquiries, please contact support@uwfs.live
     </div>
 
     </div>
