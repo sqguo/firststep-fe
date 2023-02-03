@@ -31,7 +31,7 @@ export default function MyAppBar() {
 
   // TODO: REMOVE DEVELOPMENT CONFIG
   const onNavigateToDashboard = () => {
-    history.push("/dashboard");
+    dispatch(getOpenLoginModalAction());
   }
 
   const renderProfile = () => {

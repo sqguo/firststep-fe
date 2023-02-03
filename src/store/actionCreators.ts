@@ -135,6 +135,33 @@ export function getUpdateUserProfileFailureAction(status: number, error: any): A
   };
 }
 
+export function getOrCreateUserStartAction(email: string, firstName: string, lastName: string, autoRedirect?: boolean, redirectURL?: string): AnyAction {
+  return {
+    type: actionTypes.GET_OR_CREATE_USER_START,
+    payload: {
+      email,
+      firstName,
+      lastName,
+    },
+    autoRedirect,
+    redirectURL
+  };
+}
+
+export function getLogoutStartAction(autoRedirect?: boolean, redirectURL?: string): AnyAction {
+  return {
+    type: actionTypes.LOGOUT_USER_START,
+    autoRedirect,
+    redirectURL
+  };
+}
+
+export function getLogoutSuccessAction(): AnyAction {
+  return {
+    type: actionTypes.LOGOUT_USER_SUCCESS,
+  };
+}
+
 export function getCurrentUserStartAction(email: string, autoRedirect?: boolean, redirectURL?: string): AnyAction {
   return {
     type: actionTypes.GET_CURRENT_USER_START,

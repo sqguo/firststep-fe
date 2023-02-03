@@ -133,6 +133,16 @@ export async function getUserProfile(email: string): Promise<any> {
   }
 }
 
+export async function getOrCreateUser(payload: any): Promise<any> {
+  do_debug && console.log("POST /user/profile");
+  if (is_demo) {
+    await new Promise((f) => setTimeout(f, demo_timeout));
+    throw new Error("too lazy to mock");
+  } else {
+    return await api.post("/user/profile", { ...payload })
+  }
+}
+
 export async function getUserSkillsets(userId: number): Promise<any> {
   do_debug && console.log("GET /user/skillsets");
   if (is_demo) {

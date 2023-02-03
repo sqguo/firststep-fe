@@ -3,26 +3,27 @@ import { Router, Switch, Route, useRouteMatch } from "react-router-dom";
 import history from "./history";
 import { Preference, Homepage, BasicProfile, Skillset, Dashboard, About, WaitingPage } from "./routes";
 import { LoginModal, AppBar } from "./common/components";
+import useAuthencatedUser from "./common/hooks/useAuthencatedUser";
+import AuthencatedRoute from "./AuthencatedRoute";
 
 export default function App() {
+  useAuthencatedUser();
   return (
       <Router history={history}>
+        <LoginModal />
         <AppBar />
         <Switch>
           <Route exact path="/about">
             <About />
           </Route>
-          <Route path="/onboarding">
+          <AuthencatedRoute path="/onboarding">
             <Onboarding />
-          </Route>
-          <Route path="/dashboard">
+          </AuthencatedRoute>
+          <AuthencatedRoute path="/dashboard">
             <Dashboard />
-          </Route>
+          </AuthencatedRoute>
           <Route path="/">
-            <React.Fragment>
-              <LoginModal />
-              <Homepage />
-            </React.Fragment>
+            <Homepage />
           </Route>
         </Switch>
       </Router>

@@ -1,0 +1,33 @@
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useAuth0 } from "@auth0/auth0-react";
+import * as actions from "../../store/actionCreators";
+
+function useAuthencatedUser() {
+  const dispatch = useDispatch();
+  const { user, isAuthenticated, isLoading } = useAuth0();
+
+  const appUser: User | null = useSelector(
+    (state: AppState) => state.currentUser
+  );
+
+  useEffect(() => {
+    if (user && isAuthenticated && !isLoading) {
+      const userEmail = user.email as string;
+      if (userEmail !== appUser?.profile?.email) {
+        dispatch(
+          actions.getOrCreateUserStartAction(
+            userEmail,
+            user.given_name ?? "First",
+            user.family_name ?? "Last",
+            true
+          )
+        );
+      }
+    }
+  }, [user]);
+
+  return appUser;
+}
+
+export default useAuthencatedUser;

@@ -6,6 +6,7 @@ import * as enums from "../../enums";
 import { Button, Avatar } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import Countdown, { CountdownRenderProps } from "react-countdown";
+import { useAuth0 } from "@auth0/auth0-react";
 
 import theme, { randomColorPicker } from "../../common/styles/theme";
 import {
@@ -19,6 +20,7 @@ const defaultProfile = require("../../assets/profile.png");
 
 interface Props {}
 export enum DashboardConfig {
+  AccessDenied,
   Nothing,
   Upcoming,
   Joinable,
@@ -29,6 +31,8 @@ export enum DashboardConfig {
 
 const Dashboard: FunctionComponent<Props> = () => {
   const dispatch = useDispatch();
+  const { user } = useAuth0();
+  const isUserVerified = !!user?.email_verified;
 
   const userProfile: UserProfile = useSelector(
     (state: AppState) => state.currentUser?.profile as UserProfile
@@ -68,28 +72,29 @@ const Dashboard: FunctionComponent<Props> = () => {
       : null;
   });
 
-  const config =
-    userHasGroup && userGroup
-      ? DashboardConfig.Teaming
-      : userMatchRound &&
-        userMatchRound.currentStatus == enums.MatchRoundStatus.Open
-      ? DashboardConfig.Leavable
-      : userMatchRound
-      ? DashboardConfig.Waiting
-      : latestMatchRound &&
-        latestMatchRound.currentStatus == enums.MatchRoundStatus.Open
-      ? DashboardConfig.Joinable
-      : latestMatchRound &&
-        latestMatchRound.currentStatus == enums.MatchRoundStatus.Upcoming
-      ? DashboardConfig.Upcoming
-      : DashboardConfig.Nothing;
+  const config = !isUserVerified
+    ? DashboardConfig.AccessDenied
+    : userHasGroup && userGroup
+    ? DashboardConfig.Teaming
+    : userMatchRound &&
+      userMatchRound.currentStatus == enums.MatchRoundStatus.Open
+    ? DashboardConfig.Leavable
+    : userMatchRound
+    ? DashboardConfig.Waiting
+    : latestMatchRound &&
+      latestMatchRound.currentStatus == enums.MatchRoundStatus.Open
+    ? DashboardConfig.Joinable
+    : latestMatchRound &&
+      latestMatchRound.currentStatus == enums.MatchRoundStatus.Upcoming
+    ? DashboardConfig.Upcoming
+    : DashboardConfig.Nothing;
 
   const [focusedTeamM, setFocusedTeamM] = useState(null as UserProfile | null);
   const [isMemberProfileOpen, setIsMemberProfileOpen] = useState(false);
   const [isChoiceModalOpen, setIsChoiceModalOpen] = useState(false);
 
   useEffect(() => {
-    dispatch(actions.getCurrentUserStartAction(userProfile.email))
+    dispatch(actions.getCurrentUserStartAction(userProfile.email));
     dispatch(actions.getGroupProfileStartAction(userProfile.id));
     dispatch(actions.getGlobalMatchingStatusStartAction());
   }, []);
@@ -218,6 +223,16 @@ const Dashboard: FunctionComponent<Props> = () => {
     );
   };
 
+  const renderEmailVerificationRequired = () => {
+    return (
+      <div className="dashboard__nothing dashboard dashboard__standard-content-wrapper">
+        <div className="dashboard__nothing__content dashboard__standard-content">
+          <span>Check you mailbox for a verification email!</span>
+        </div>
+      </div>
+    );
+  };
+
   const renderWaiting = () => {
     return (
       <div className="dashboard__waiting dashboard dashboard__standard-content-wrapper">
@@ -289,6 +304,8 @@ const Dashboard: FunctionComponent<Props> = () => {
               onStayTeam={() => onUpdateGroupCommitment(true)}
             />
           )}
+          {config === DashboardConfig.AccessDenied &&
+            renderEmailVerificationRequired()}
           {config === DashboardConfig.Nothing && renderNothing()}
           {config === DashboardConfig.Upcoming && renderUpcoming()}
           {config === DashboardConfig.Joinable && renderJoinable()}

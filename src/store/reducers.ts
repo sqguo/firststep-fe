@@ -212,12 +212,26 @@ const reducer = (
         hasError: true,
       };
     }
+    case actionTypes.LOGOUT_USER_START:
+      return {
+        ...state,
+        isLoadingCurrentUser: true,
+      }
+    case actionTypes.LOGOUT_USER_SUCCESS:
+      return {
+        ...state,
+        isLoginModalOpen: false,
+        currentUser: null,
+        isLoadingCurrentUser: false,
+      }
+    case actionTypes.GET_OR_CREATE_USER_START:
     case actionTypes.GET_CURRENT_USER_START: {
       return {
         ...state,
         isLoadingCurrentUser: true,
       };
     }
+    case actionTypes.GET_OR_CREATE_USER_SUCCESS:
     case actionTypes.GET_CURRENT_USER_SUCCESS: {
       const currentUser =
         state.currentUser === null
@@ -233,6 +247,7 @@ const reducer = (
         isLoginModalOpen: false,
       };
     }
+    case actionTypes.GET_GROUP_PROFILE_FAILURE:
     case actionTypes.GET_CURRENT_USER_FAILURE: {
       return {
         ...state,

@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import _ from "lodash";
 import classnames from "classnames";
 import * as actions from "../../store/actionCreators";
+import { useAuth0 } from "@auth0/auth0-react";
 import { Divider, Button, Modal, TextField } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import { LoadingButton } from "@mui/lab";
@@ -17,14 +18,17 @@ import {
 } from "@mui/icons-material";
 import theme from "../styles/theme";
 import "./LoginModal.scss";
+import history from "../../history";
+
 
 const clipcart = require("../../assets/login.png");
 
 interface Props {}
 
 enum ModalState {
-  SignUp,
+  SignUp, // UNUSED
   Choice,
+  Logout,
 }
 
 const LoginModal: FunctionComponent<Props> = () => {
@@ -37,9 +41,12 @@ const LoginModal: FunctionComponent<Props> = () => {
   );
 
   const dispatch = useDispatch();
+  const { user, loginWithRedirect, logout } = useAuth0();
   const isLoginModalOpen = useSelector(
     (state: AppState) => state.isLoginModalOpen
   );
+  const currentUser = useSelector((state: AppState) => state.currentUser);
+  const isLoggedIn = !!currentUser && !!user;
   const isSigningIn = useSelector(
     (state: AppState) => state.isLoadingCurrentUser
   );
@@ -58,7 +65,9 @@ const LoginModal: FunctionComponent<Props> = () => {
       if (isNewEmailAccepted) {
         setEmailHelperText("Check you mailbox for an verification email");
       } else if (newEmailRejectionReason) {
-        setEmailHelperText("sorry, " + newEmailRejectionReason+", please try again...");
+        setEmailHelperText(
+          "sorry, " + newEmailRejectionReason + ", please try again..."
+        );
         setIsEmailSubmittable(false);
         setIsEmailValid(false);
       }
@@ -71,13 +80,17 @@ const LoginModal: FunctionComponent<Props> = () => {
   };
 
   const onClickSignIn = () => {
-    dispatch(
-      actions.getCurrentUserStartAction("test@uwaterloo.ca", true)
-    );
+    loginWithRedirect();
   };
 
   const onClickSignUp = () => {
     setModalState(ModalState.SignUp);
+  };
+
+  const onClickLogout = () => {
+    logout({ openUrl: false });
+    dispatch(actions.getLogoutStartAction());
+    history.push('/');
   };
 
   const debouncedUpdateEmailErrorDisplay = useCallback(
@@ -171,18 +184,30 @@ const LoginModal: FunctionComponent<Props> = () => {
             size="large"
             onClick={onClickSignIn}
             loading={isSigningIn}
+            disabled={isLoggedIn}
           >
             Sign In
           </LoadingButton>
         </div>
         <Divider>OR</Divider>
-        <div
+        {/* <div
           className="login-modal__signup-choice-block"
           onClick={onClickSignUp}
         >
           <Button variant="contained" size="large">
             Sign Up
           </Button>
+        </div> */}
+        <div className="login-modal__signup-choice-block">
+          <LoadingButton
+            variant="contained"
+            size="large"
+            loading={isSigningIn}
+            onClick={onClickLogout}
+            disabled={!isLoggedIn}
+          >
+            Log Out
+          </LoadingButton>
         </div>
       </div>
     );

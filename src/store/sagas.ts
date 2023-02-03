@@ -87,6 +87,31 @@ function* updateUserProfile({ payload }: AnyAction) {
   }
 }
 
+function* getOrCreateUser({ payload, autoRedirect, redirectURL }: AnyAction) {
+  try {
+    const { data } = yield call(apiService.getOrCreateUser, payload);
+    yield put(actionCreators.getCurrentUserSuccessAction(data));
+    if (autoRedirect) {
+      history.push(onBoardingStepsMap[data.onboardingStatus].nextUrl);
+    } else if (redirectURL) {
+      history.push(redirectURL);
+    }
+  } catch (err: any) {
+    yield put(
+      actionCreators.getCurrentUserFailureAction(parseErrorCode(err), err)
+    );
+  }
+}
+
+function *logoutUser({ autoRedirect, redirectURL }: AnyAction) {
+  yield put(actionCreators.getLogoutSuccessAction());
+  if (autoRedirect) {
+    history.push('/');
+  } else if (redirectURL) {
+    history.push(redirectURL);
+  }
+}
+
 function* getCurrentUser({ email, autoRedirect, redirectURL }: AnyAction) {
   try {
     const { data } = yield call(apiService.getUserProfile, email);
@@ -217,6 +242,8 @@ function* rootSaga() {
     takeLatest(actionTypes.GET_ALL_PROGRAMS_START, getAllPrograms),
     takeLatest(actionTypes.SIGNUP_CHECK_NEW_EMAIL_START, checkNewEmail),
     takeLeading(actionTypes.UPDATE_USER_PROFILE_START, updateUserProfile),
+    takeLatest(actionTypes.GET_OR_CREATE_USER_START, getOrCreateUser),
+    takeLatest(actionTypes.LOGOUT_USER_START, logoutUser),
     takeLatest(actionTypes.GET_CURRENT_USER_START, getCurrentUser),
     takeLatest(
       actionTypes.GET_CURRENT_USER_SKILLSETS_START,
