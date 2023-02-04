@@ -1,11 +1,13 @@
 import axios from "axios";
 import * as mock from "./mockData";
 import _ from "lodash";
+import { sec } from "../security";
 
 const base_url = process.env.SERVER_HOST;
 const is_demo = process.env.DEMO === "true";
 const do_debug = process.env.DEBUG === "true";
 const demo_timeout = Number(process.env.DEMO_TIMEOUT);
+const auth0Audience = process.env.AUTH0_AUDIENCE as string;
 
 const dateTimeConverter = (data: any) => {
   const fieldsOfInterest = [
@@ -49,12 +51,23 @@ const api = axios.create({
   baseURL: base_url,
   timeout: 1000,
 });
+
+api.interceptors.request.use(async function (config) {
+  const accessToken = await sec.getAccessTokenSilently()({
+    authorizationParams: { audience: auth0Audience },
+  });
+  if (config.headers) {
+    config.headers.Authorization = `Bearer ${accessToken}`;
+  }
+  return config;
+});
+
 api.interceptors.response.use(function (response) {
   do_debug && console.log("RESPONSE", response);
   return {
     ...response,
-    data: snakeCaseConverter(dateTimeConverter(response.data))
-  }
+    data: snakeCaseConverter(dateTimeConverter(response.data)),
+  };
 });
 
 export async function fetchGlobalMatchingStatus(): Promise<any> {
@@ -139,7 +152,7 @@ export async function getOrCreateUser(payload: any): Promise<any> {
     await new Promise((f) => setTimeout(f, demo_timeout));
     throw new Error("too lazy to mock");
   } else {
-    return await api.post("/user/profile", { ...payload })
+    return await api.post("/user/profile", { ...payload });
   }
 }
 

@@ -1,11 +1,18 @@
 import React, { useEffect } from "react";
+import cookies from "../../cookies";
 import { useDispatch, useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
 import * as actions from "../../store/actionCreators";
+import { sec } from "../../security";
+
+const auth0Audience = process.env.AUTH0_AUDIENCE as string;
+const cookieDomain = process.env.DOMAIN as string;
 
 function useAuthencatedUser() {
   const dispatch = useDispatch();
-  const { user, isAuthenticated, isLoading } = useAuth0();
+  const { user, isAuthenticated, isLoading, getAccessTokenSilently } =
+    useAuth0();
+  sec.setAccessTokenSilently(getAccessTokenSilently);
 
   const appUser: User | null = useSelector(
     (state: AppState) => state.currentUser

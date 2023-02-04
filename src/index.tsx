@@ -10,6 +10,7 @@ import { LoadingScreen } from "./common/components";
 
 const auth0Domain = process.env.AUTH0_DOMAIN as string;
 const auth0ClientId = process.env.AUTH0_CLIENTID as string;
+const auth0Audience = process.env.AUTH0_AUDIENCE as string;
 const container = document.getElementById("root")!;
 const [store, persistor] = configureStore();
 
@@ -21,6 +22,7 @@ ReactDOM.render(
       clientId={auth0ClientId}
       authorizationParams={{
         redirect_uri: window.location.origin,
+        audience: auth0Audience,
       }}
     >
       <Provider store={store}>
