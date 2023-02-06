@@ -53,6 +53,8 @@ const BasicProfile: FunctionComponent<Props> = () => {
     (state: AppState) => state.onboardingConfiguration.programs
   );
 
+  const [hasSubmission, setHasSubmission] = useState(false);
+
   useEffect(() => {
     if (Object.entries(allPrograms).length == 0 || !allPrograms) {
       dispatch(actions.getAllProgramsStartAction());
@@ -60,10 +62,10 @@ const BasicProfile: FunctionComponent<Props> = () => {
   }, []);
 
   useEffect(() => {
-    if (!isUpdating && onboardingStatus > currentStep) {
+    if (!isUpdating && hasSubmission && onboardingStatus > currentStep) {
       history.push(onBoardingStepsMap[onboardingStatus].nextUrl);
     }
-  }, [isUpdating]);
+  }, [isUpdating, hasSubmission]);
 
   const yearNow = new Date().getFullYear();
   const validateYear = (year: number) => {
@@ -85,6 +87,7 @@ const BasicProfile: FunctionComponent<Props> = () => {
     dispatch(
       actions.getUpdateUserProfileStartAction(newProfile.id, newProfile)
     );
+    setHasSubmission(true)
   };
 
   const renderGenericTextForm = (

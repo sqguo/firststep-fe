@@ -68,6 +68,7 @@ const preference: FunctionComponent<Props> = () => {
     {} as Record<number, UserPreference>
   );
   const [focusedPrefIdx, setFocusedPrefIdx] = useState(0);
+  const [hasSubmission, setHasSubmission] = useState(false);
 
   useEffect(() => {
     if (Object.entries(allPreferences).length == 0 || !allPreferences) {
@@ -97,16 +98,17 @@ const preference: FunctionComponent<Props> = () => {
   }, [isLoadingConfig]);
 
   useEffect(() => {
-    if (!isUpdating && onboardingStatus > currentStep) {
+    if (!isUpdating && hasSubmission && onboardingStatus > currentStep) {
       history.push(onBoardingStepsMap[onboardingStatus].nextUrl);
     }
-  }, [isUpdating]);
+  }, [isUpdating, hasSubmission]);
 
   const onSubmit = (pref: Record<number, UserPreference>) => {
     const newPreferencessArr = Object.entries(pref).map((e) => e[1]);
     dispatch(
       actions.getUpdateUserPreferencesStartAction(userId, newPreferencessArr)
     );
+    setHasSubmission(true)
   };
 
   const renderLikeButton = (prefidx: number) => {

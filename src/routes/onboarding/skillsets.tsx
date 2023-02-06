@@ -69,6 +69,8 @@ const skillsets: FunctionComponent<Props> = () => {
     {} as Record<number, UserSkillset>
   );
 
+  const [hasSubmission, setHasSubmission] = useState(false);
+
   useEffect(() => {
     if (Object.entries(allSkillsets).length == 0 || !allSkillsets) {
       dispatch(actions.getAllSillsetsStartAction());
@@ -98,16 +100,17 @@ const skillsets: FunctionComponent<Props> = () => {
   }, [isLoadingConfig]);
 
   useEffect(() => {
-    if (!isUpdating && onboardingStatus > currentStep) {
+    if (!isUpdating && hasSubmission && onboardingStatus > currentStep) {
       history.push(onBoardingStepsMap[onboardingStatus].nextUrl);
     }
-  }, [isUpdating]);
+  }, [isUpdating, hasSubmission]);
 
   const onSubmit = () => {
     const newSkillsetsArr = Object.entries(newSkillsets).map((e) => e[1]);
     dispatch(
       actions.getUpdateUserSkillsetsStartAction(userId, newSkillsetsArr)
     );
+    setHasSubmission(true);
   };
 
   const debouncedSliderUpdate = useCallback(
