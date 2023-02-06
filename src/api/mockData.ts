@@ -50,7 +50,7 @@ export const GetAllSkillsetsRespData = {
     skillsets: [
       {
         id: 0,
-        name: "Embeded Software",
+        name: "Embedded Software",
         description:
           "Embedded software is a piece of software that is embedded in hardware or non-PC devices.",
         responseRequired: true,
