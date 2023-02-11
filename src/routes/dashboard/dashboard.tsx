@@ -150,7 +150,7 @@ const Dashboard: FunctionComponent<Props> = () => {
       <div className="dashboard__nothing dashboard dashboard__standard-content-wrapper">
         <div className="dashboard__nothing__content dashboard__standard-content">
           <span>
-            Our matching algorithm is taking a break, please check back later
+            Our matching algorithm is taking a break, please check back later.
           </span>
         </div>
       </div>
@@ -162,7 +162,7 @@ const Dashboard: FunctionComponent<Props> = () => {
       <div className="dashboard__joinable dashboard dashboard__standard-content-wrapper">
         <div className="dashboard__joinable__content dashboard__standard-content">
           <span>
-            Matching is open! Our Algoirthm will soon be creating FYDP teams
+            Matching is open! Our Algorithm will soon be creating FYDP teams.
           </span>
           <Button variant="outlined" onClick={onJoinMatchRound}>
             Enter Now
@@ -194,7 +194,7 @@ const Dashboard: FunctionComponent<Props> = () => {
     return (
       <div className="dashboard__upcoming dashboard dashboard__standard-content-wrapper">
         <div className="dashboard__upcoming__content dashboard__standard-content">
-          <span>New matchrounds will open soon</span>
+          <span>New match rounds will open soon</span>
           <div className="dashboard__countdown__wrapper">
             {latestMatchRound?.nextStart && (
               <Countdown
@@ -227,7 +227,7 @@ const Dashboard: FunctionComponent<Props> = () => {
     return (
       <div className="dashboard__nothing dashboard dashboard__standard-content-wrapper">
         <div className="dashboard__nothing__content dashboard__standard-content">
-          <span>Check you mailbox for a verification email!</span>
+          <span>Check your mailbox for a verification email!</span>
         </div>
       </div>
     );
