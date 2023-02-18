@@ -1,0 +1,98 @@
+@import "../../common/styles/colors.scss";
+@import "../../common/styles/shared.scss";
+
+$animation-offset-y: 80vh;
+$animation-offset-y-mobile: 87vh;
+$animation-radius: -150vh;
+$animation-radius-mobile: -100vh;
+
+.landing-page {
+  height: 100%;
+
+  &__background {
+    position: absolute;
+
+    &__animation-wrapper {
+      position: absolute;
+      left: calc(50vw - 40.59px);
+      top: calc($animation-offset-y - $header-height);
+      @media screen and (max-width: $mobile-width-cutoff) {
+        top: calc($animation-offset-y-mobile - $header-height);
+      }
+    }
+
+    &__profile-wrapper {
+      position: absolute;
+      transform-origin: center $animation-radius;
+
+      @media screen and (max-width: $mobile-width-cutoff) {
+        transform-origin: center $animation-radius-mobile;
+      }
+
+      img {
+        display: block;
+        width: 75px;
+        border-radius: 50%;
+        border: solid;
+        border-width: 3px;
+        border-color: $eng-1-dark2;
+        box-shadow: 5px 11px 17px -10px rgba(0,0,0,0.75);
+        @media screen and (max-width: $mobile-width-cutoff) {
+          width: 60px;
+        }
+      }
+    }
+  }
+
+  &__content-wrapper {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    z-index: 100;
+  }
+
+  &__content {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 650px;
+    padding-bottom: 150px;
+    @media screen and (max-width: $mobile-width-cutoff) {
+      padding-bottom: 100px;
+    }
+
+    &__title {
+      color: $eng-1-dark;
+      font-size: 50px;
+      font-weight: 900;
+      font-family: "Barlow Condensed", sans-serif;
+      text-align: center;
+      line-height: 110%;
+    }
+
+    &__description {
+      color: $eng-1-dark;
+      padding-left: 8px;
+      padding-right: 8px;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    &__button {
+      margin-top: 28px;
+      color: $eng-1-dark2;
+    }
+
+    &__secondary-action {
+      font-size: 15px;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 16px;
+      color: $eng-1-gray-light;
+      font-weight: 400;
+    }
+  }
+}

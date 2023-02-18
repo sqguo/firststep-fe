@@ -5,6 +5,8 @@ import { Preference, Homepage, BasicProfile, Skillset, Dashboard, About, Waiting
 import { LoginModal, AppBar } from "./common/components";
 import useAuthencatedUser from "./common/hooks/useAuthencatedUser";
 import AuthencatedRoute from "./AuthencatedRoute";
+import "./App.scss"; 
+import AutoRedirectRoute from "./AutoRedirectRoute";
 
 export default function App() {
   useAuthencatedUser();
@@ -44,9 +46,7 @@ function Onboarding() {
         <Route exact path={`${path}/profile`}>
           <BasicProfile />
         </Route>
-        <Route exact path={`${path}/`}>
-          <WaitingPage />
-        </Route>
+        <AutoRedirectRoute exact path={`${path}/`} />
       </Switch>
     </div>
   );

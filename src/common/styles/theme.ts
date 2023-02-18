@@ -11,6 +11,19 @@ const theme = createTheme({
   },
 });
 
+export const defaultTheme = createTheme({      
+  typography: {
+    fontFamily: `"Nunito", serif`,
+    fontSize: 14,
+    fontWeightLight: 300,
+    fontWeightRegular: 400,
+    fontWeightMedium: 500,
+    button: {
+      textTransform: 'none'
+    }
+  }
+});
+
 export const randomColors = [
   "#99bfa3",
   "#d0b4ef",

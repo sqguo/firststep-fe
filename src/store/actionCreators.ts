@@ -402,3 +402,10 @@ export function getCloseLoginModalAction(): AnyAction {
     type: actionTypes.CLOSE_LOGIN_MODAL,
   }
 }
+
+export function getShowHomepageWalkthroughAction(flag: boolean): AnyAction {
+  return {
+    type: actionTypes.SHOW_HOMEPAGE_WALKTHROUGH,
+    flag,
+  }
+}

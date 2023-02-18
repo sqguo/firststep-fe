@@ -28,6 +28,7 @@ const initialState: AppState = {
   isNewEmailValid: false,
   newEmailRejectionReason: null,
   isLoginModalOpen: false,
+  showHomepageWalkthrough: false,
 };
 
 const initialSignedInUserState: User = {
@@ -473,6 +474,12 @@ const reducer = (
       return {
         ...state,
         isLoginModalOpen: false,
+      };
+    }
+    case actionTypes.SHOW_HOMEPAGE_WALKTHROUGH: {
+      return {
+        ...state,
+        showHomepageWalkthrough: action.flag,
       };
     }
   }

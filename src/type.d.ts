@@ -23,6 +23,9 @@ interface AppState {
   isNewEmailValid: boolean
   newEmailRejectionReason: string | null
   isLoginModalOpen: boolean
+
+  // misc
+  showHomepageWalkthrough: boolean 
 }
 
 
