@@ -15,9 +15,6 @@ import {
   MobileStepper,
   Tooltip,
   CircularProgress,
-  Stepper,
-  StepLabel,
-  Step,
 } from "@mui/material";
 import {
   KeyboardArrowLeft as LeftIcon,
@@ -35,6 +32,7 @@ import {
 } from "./onboardingConfig";
 
 import "./preference.scss";
+import Stepper from "./stepper";
 
 interface Props {}
 const currentStep = enums.OnboardingStatus.Step2;
@@ -213,15 +211,7 @@ const preference: FunctionComponent<Props> = () => {
   return (
     <div className="onboarding__preference">
       <LoadingScreen isLoading={isLoadingConfig || isUpdating} />
-      <div className="onboarding__steps-container">
-        <Stepper activeStep={currentStep} alternativeLabel>
-          {relevantOnboardingSteps.map((step) => (
-            <Step key={step.id}>
-              <StepLabel>{step.brief}</StepLabel>
-            </Step>
-          ))}
-        </Stepper>
-      </div>
+      <Stepper currentStep={currentStep} />
       {Object.entries(newPreferences).length > 0 && (
         <React.Fragment>
           <div className="onboarding__preference__content-container">

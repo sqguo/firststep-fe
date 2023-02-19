@@ -1,6 +1,7 @@
 @import "./common/styles/colors.scss";
 
 button.actionButton {
+  text-transform: none;
   border-color: $bg-theme-diluted;
   background-color: $bg-theme-diluted;
   font-weight: 600;

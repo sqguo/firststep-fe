@@ -1,8 +1,12 @@
-%modal-content-container {
+%modal-inner-wrapper {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+%modal-content-container {
+  @extend %modal-inner-wrapper;
   background-color: $bg-light;
   box-shadow: 6px 18px 41px 5px rgba(0, 0, 0, 0.74);
   width: 300px;

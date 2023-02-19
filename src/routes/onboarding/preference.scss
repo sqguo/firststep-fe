@@ -1,8 +1,18 @@
 @import "../../common/styles/colors.scss";
 @import "../../common/styles/mixins.scss";
+@import "../../common/styles/shared.scss";
 
 .onboarding__preference {
   @include onboarding(600px);
+
+  overflow-y: scroll;
+  height: calc(100vh - $header-height);
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar { 
+    display: none; 
+  }
 
   .onboarding__steps-container {
     margin-bottom: 30px;

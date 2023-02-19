@@ -1,21 +1,5 @@
 @import "../styles/colors.scss";
 @mixin onboarding($cwidth: 400px) {
-  .onboarding__steps-container {
-    padding-top: 120px;
-    @media (max-height: 700px) {
-      padding-top: 100px;
-    }
-    margin-bottom: 50px;
-    max-width: 950px;
-
-    .MuiStepper-root {
-      .MuiStepIcon-root.Mui-completed,
-      .MuiStepIcon-root.Mui-active {
-        color: black;
-      }
-    }
-  }
-
   .onboarding__floating-button {
     &__container {
       z-index: 100;

@@ -1,0 +1,40 @@
+@import "../../common/styles/colors.scss";
+@import "../../common/styles/shared.scss";
+
+$footprint-radius: 16px;
+
+.footprint {
+  position: absolute;
+  margin: $footprint-radius;
+  width: calc(100vw - 2 * $footprint-radius);
+  height: calc(100vh - $header-height);
+  overflow: hidden;
+
+  &__animation-wapper {
+    width: 100%;
+    height: 100%;
+  }
+
+  &__print-wrapper {
+    position: absolute;
+    display: flex;
+    width: calc($footprint-radius * 2 + 30px);
+    height: calc($footprint-radius * 2);
+    justify-content: start;
+
+    &__flipped {
+      justify-content: end;
+    }
+    
+  }
+
+  &__print {
+    fill: $eng-1-dark;
+    transform: scaleX(-1);
+    width: 32px;
+
+    &__flipped {
+      transform: scaleX(1);
+    }
+  }
+}

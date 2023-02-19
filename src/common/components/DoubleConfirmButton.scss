@@ -1,0 +1,120 @@
+@import "../styles/colors.scss";
+@import "../styles/Modal.scss";
+@import "../styles/shared.scss";
+
+%double-confirm-bg {
+  background-color: rgb(19 13 25 / 86%);
+  box-shadow: 3px 9px 20px 2px #15121757;
+}
+
+.double-confirm {
+  z-index: 1000;
+  &__modal {
+    &__outer-wrapper {
+      @extend %modal-inner-wrapper;
+      height: fit-content;
+    }
+
+    &__content-container {
+      @extend %double-confirm-bg;
+      padding: 20px;
+      border-radius: 16px;
+      width: min(400px, 85vw);
+      height: fit-content;
+    }
+
+    &__title {
+      color: white;
+      font-size: 26px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    &__description {
+      color: white;
+      font-size: 13px;
+      font-weight: 300;
+      margin-bottom: 24px;
+    }
+
+    &__buttons-row {
+      display: flex;
+      justify-content: end;
+
+      button.actionButton {
+        margin-left: 12px;
+        color: white;
+        border-color: black;
+        &:hover {
+          border-color: white;
+        }
+        &.actionButton-cancel {
+          background-color: rgb(229 225 225 / 53%);
+          &:hover {
+            background-color: rgb(229 225 225 / 30%);
+          }
+        }
+
+        &.actionButton-danger {
+          background-color: #604b76;
+          &:hover {
+            background-color: #3b2d49;
+          }
+        }
+      }
+    }
+
+    &__clipart {
+      margin-top: 12px;
+      width: min(440px, calc(85vw + 40px));
+      display: flex;
+      flex-direction: column;
+      align-items: end;
+      gap: 12px;
+      &__box1-wrapper,
+      &__box2-wrapper {
+        height: 30px;
+      }
+      &__box1 {
+        @extend %double-confirm-bg;
+
+        position: absolute;
+        right: -8px;
+        @media screen and (max-width: $mobile-width-cutoff) {
+          right: 65px;
+        }
+
+        border-radius: 25px;
+        width: 75px;
+        height: 30px;
+      }
+      &__box2 {
+        @extend %double-confirm-bg;
+
+        position: absolute;
+        right: -16px;
+        @media screen and (max-width: $mobile-width-cutoff) {
+          right: 67px;
+        }
+
+        border-radius: 25px;
+        width: 50px;
+        height: 30px;
+      }
+      &__art {
+        img {
+          opacity: 0.85;
+          width: 100px;
+          filter: invert(4%) sepia(11%) saturate(6186%) hue-rotate(240deg)
+            brightness(90%) contrast(95%);
+
+          position: absolute;
+          right: -83px;
+          @media screen and (max-width: $mobile-width-cutoff) {
+            right: 10px;
+          }
+        }
+      }
+    }
+  }
+}

@@ -3,20 +3,14 @@ import React, {
   useState,
   useEffect,
   useCallback,
+  useRef,
 } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import _ from "lodash";
 import * as actions from "../../store/actionCreators";
 import history from "../../history";
 import * as enums from "../../enums";
-import {
-  Step,
-  StepLabel,
-  Stepper,
-  Slider,
-  Fab,
-  CircularProgress,
-} from "@mui/material";
+import { Slider, Fab, CircularProgress } from "@mui/material";
 import {
   KeyboardArrowUp as UpIcon,
   Navigation as NavigationIcon,
@@ -24,9 +18,12 @@ import {
 import { ThemeProvider } from "@mui/material/styles";
 
 import { LoadingScreen } from "../../common/components";
-import { onBoardingStepsMap, relevantOnboardingSteps } from "./onboardingConfig";
+import {
+  onBoardingStepsMap,
+} from "./onboardingConfig";
 import theme from "../../common/styles/theme";
 import "./skillsets.scss";
+import Stepper from "./stepper";
 
 interface Props {}
 const currentStep = enums.OnboardingStatus.Step1;
@@ -43,11 +40,13 @@ const marks = [
 
 const skillsets: FunctionComponent<Props> = () => {
   const dispatch = useDispatch();
+  const containerRef = useRef<HTMLDivElement>(null);
   const isUpdating = useSelector(
     (state: AppState) => state.isUpdatingUserSettings
   );
   const isLoadingConfig = useSelector(
-    (state: AppState) => state.isLoadingOnboardingConfigration || state.isLoadingUserSettings
+    (state: AppState) =>
+      state.isLoadingOnboardingConfigration || state.isLoadingUserSettings
   );
   const prevSkillsets = useSelector(
     (state: AppState) => state.currentUser?.skillsets as UserSkillset[]
@@ -85,7 +84,7 @@ const skillsets: FunctionComponent<Props> = () => {
       const prevSkillMap: Record<number, UserSkillset> = {};
       Object.entries(prevSkillsets).forEach((e) => {
         prevSkillMap[e[1].attributeId] = e[1];
-      })
+      });
       const initSkillsets: Record<number, UserSkillset> = {};
       Object.entries(allSkillsets).forEach((e) => {
         const curSkill: UserSkillset | null = prevSkillMap[e[1].id];
@@ -168,7 +167,7 @@ const skillsets: FunctionComponent<Props> = () => {
               color="secondary"
               size="medium"
               onClick={() => {
-                window.scrollTo(0, 0);
+                containerRef.current && containerRef.current.scrollTo(0, 0);
               }}
             >
               <UpIcon />
@@ -180,18 +179,10 @@ const skillsets: FunctionComponent<Props> = () => {
   };
 
   return (
-    <div className="onboarding__skillsets">
+    <div className="onboarding__skillsets" ref={containerRef}>
       <LoadingScreen isLoading={isLoadingConfig} />
       <div className="onboarding__skillsets-container">
-        <div className="onboarding__steps-container">
-          <Stepper activeStep={currentStep} alternativeLabel>
-            {relevantOnboardingSteps.map((step) => (
-              <Step key={step.id}>
-                <StepLabel>{step.brief}</StepLabel>
-              </Step>
-            ))}
-          </Stepper>
-        </div>
+        <Stepper currentStep={currentStep} />
         {renderSkillsetForm()}
       </div>
     </div>

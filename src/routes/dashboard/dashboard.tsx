@@ -1,22 +1,31 @@
-import React, { FunctionComponent, useEffect, useState } from "react";
+import React, { FunctionComponent, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import _ from "lodash";
 import * as actions from "../../store/actionCreators";
 import * as enums from "../../enums";
-import { Button, Avatar } from "@mui/material";
-import { ThemeProvider } from "@mui/material/styles";
+import { Button } from "@mui/material";
 import Countdown, { CountdownRenderProps } from "react-countdown";
 import { useAuth0 } from "@auth0/auth0-react";
+import {
+  PlayCircleOutline as PlayCircleOutlineIcon,
+  Logout as LogoutIcon,
+} from "@mui/icons-material";
 
-import theme, { randomColorPicker } from "../../common/styles/theme";
 import {
   LoadingScreen,
-  TeamOptionsModal,
-  ProfileModal,
+  DoubleConfirmButton,
+  Footprints,
 } from "../../common/components";
 import "./dashboard.scss";
+import TeamPage from "./teamPage";
 
-const defaultProfile = require("../../assets/profile.png");
+// const defaultProfile = require("../../assets/profile.png");
+// const gooseSearching = require("../../assets/dashboard/goose-searching.png");
+// const gooseMeeting = require("../../assets/dashboard/goose-meeting.png");
+// const gooseOpenDoor = require("../../assets/dashboard/goose-opendoor.png");
+// const gooseSleeping = require("../../assets/dashboard/goose-sleeping.png");
+// const gooseVerification = require("../../assets/dashboard/goose-verification.png");
+// const gooseWaiting = require("../../assets/dashboard/goose-waiting.png");
 
 interface Props {}
 export enum DashboardConfig {
@@ -89,10 +98,6 @@ const Dashboard: FunctionComponent<Props> = () => {
     ? DashboardConfig.Upcoming
     : DashboardConfig.Nothing;
 
-  const [focusedTeamM, setFocusedTeamM] = useState(null as UserProfile | null);
-  const [isMemberProfileOpen, setIsMemberProfileOpen] = useState(false);
-  const [isChoiceModalOpen, setIsChoiceModalOpen] = useState(false);
-
   useEffect(() => {
     dispatch(actions.getCurrentUserStartAction(userProfile.email));
     dispatch(actions.getGroupProfileStartAction(userProfile.id));
@@ -117,37 +122,9 @@ const Dashboard: FunctionComponent<Props> = () => {
     );
   };
 
-  const onOpenMemberProfile = (member: UserProfile) => {
-    setFocusedTeamM(member);
-    setIsMemberProfileOpen(true);
-  };
-  const onCloseMemberProfile = () => {
-    setIsMemberProfileOpen(false);
-  };
-  const onOpenChoiceModal = () => {
-    setIsChoiceModalOpen(true);
-  };
-  const onCloseChoiceModal = () => {
-    setIsChoiceModalOpen(false);
-  };
-
-  const onUpdateGroupCommitment = (commit: boolean) => {
-    setIsChoiceModalOpen(false);
-    dispatch(
-      actions.getUpdateGroupCommitmentStartAction(
-        userProfile.id,
-        userGroup?.id as number,
-        commit
-          ? enums.GroupCommitmentOptions.Commit
-          : enums.GroupCommitmentOptions.Leave,
-        "N/A"
-      )
-    );
-  };
-
   const renderNothing = () => {
     return (
-      <div className="dashboard__nothing dashboard dashboard__standard-content-wrapper">
+      <div className="dashboard__nothing dashboard__standard-content-wrapper">
         <div className="dashboard__nothing__content dashboard__standard-content">
           <span>
             Our matching algorithm is taking a break, please check back later.
@@ -159,12 +136,18 @@ const Dashboard: FunctionComponent<Props> = () => {
 
   const renderJoinable = () => {
     return (
-      <div className="dashboard__joinable dashboard dashboard__standard-content-wrapper">
+      <div className="dashboard__joinable dashboard__standard-content-wrapper">
         <div className="dashboard__joinable__content dashboard__standard-content">
           <span>
             Matching is open! Our Algorithm will soon be creating FYDP teams.
           </span>
-          <Button variant="outlined" onClick={onJoinMatchRound}>
+          <Button
+            className="actionButton"
+            color="inherit"
+            variant="outlined"
+            onClick={onJoinMatchRound}
+          >
+            <PlayCircleOutlineIcon />
             Enter Now
           </Button>
         </div>
@@ -192,7 +175,7 @@ const Dashboard: FunctionComponent<Props> = () => {
       );
     };
     return (
-      <div className="dashboard__upcoming dashboard dashboard__standard-content-wrapper">
+      <div className="dashboard__upcoming dashboard__standard-content-wrapper">
         <div className="dashboard__upcoming__content dashboard__standard-content">
           <span>New match rounds will open soon</span>
           <div className="dashboard__countdown__wrapper">
@@ -210,14 +193,24 @@ const Dashboard: FunctionComponent<Props> = () => {
 
   const renderLeavable = () => {
     return (
-      <div className="dashboard__leavable dashboard dashboard__standard-content-wrapper">
+      <div className="dashboard__leavable dashboard__standard-content-wrapper">
         <div className="dashboard__leavable__content dashboard__standard-content">
           <span>
             Thanks for joining! Our algorithm will soon find your FYDP team.
           </span>
-          <Button variant="outlined" onClick={onLeaveMacthround}>
+          <DoubleConfirmButton
+            variant="outlined"
+            className="actionButton"
+            color="inherit"
+            onClick={onLeaveMacthround}
+            confirmDescription="We understand that sometimes life can get in the way of your plans, 
+              and you may need to opt out of a team matching round. 
+              Before you confirm your decision, please ensure that this is what you really want to do, 
+              as we may not be able to include you in a future round."
+          >
+            <LogoutIcon />
             Opt Out
-          </Button>
+          </DoubleConfirmButton>
         </div>
       </div>
     );
@@ -225,7 +218,7 @@ const Dashboard: FunctionComponent<Props> = () => {
 
   const renderEmailVerificationRequired = () => {
     return (
-      <div className="dashboard__nothing dashboard dashboard__standard-content-wrapper">
+      <div className="dashboard__nothing dashboard__standard-content-wrapper">
         <div className="dashboard__nothing__content dashboard__standard-content">
           <span>Check your mailbox for a verification email!</span>
         </div>
@@ -235,7 +228,7 @@ const Dashboard: FunctionComponent<Props> = () => {
 
   const renderWaiting = () => {
     return (
-      <div className="dashboard__waiting dashboard dashboard__standard-content-wrapper">
+      <div className="dashboard__waiting dashboard__standard-content-wrapper">
         <div className="dashboard__waiting__content dashboard__standard-content">
           <span>
             Please wait while our algorithm emulates all alternate futures to
@@ -246,74 +239,20 @@ const Dashboard: FunctionComponent<Props> = () => {
     );
   };
 
-  const renderTeaming = () => {
-    return (
-      <div className="dashboard__teaming dashboard dashboard__standard-content-wrapper">
-        <div className="dashboard__teaming__content dashboard__standard-content">
-          <div className="dashboard__teaming__content__prompt-primary">
-            Team {userGroup?.name}
-          </div>
-          <div className="dashboard__teaming__content__prompt-secondary">
-            Say hi to your fellow members!{" "}
-            <Button onClick={onOpenChoiceModal}>What's next</Button>
-          </div>
-          <div className="dashboard__teaming__content__teams-container">
-            {userGroup?.members.map((member) => {
-              const isCurrentUser = member.id === userProfile.id;
-              return (
-                <div
-                  className="dashboard__teaming__content__avatar-wrapper"
-                  key={member.id}
-                  onClick={() => onOpenMemberProfile(member)}
-                >
-                  <Avatar
-                    sx={{ bgcolor: randomColorPicker() }}
-                    alt={member.firstName + " " + member.lastName}
-                    src={
-                      member.avatarURL || (isCurrentUser ? defaultProfile : "")
-                    }
-                  >
-                    {member.firstName.charAt(0) + member.lastName.charAt(0)}
-                  </Avatar>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </div>
-    );
-  };
-
   return (
     <div className="dashboard">
       <LoadingScreen isLoading={isLoading} />
-      <ThemeProvider theme={theme}>
-        <div className="dashboard__content-container">
-          {isMemberProfileOpen && (
-            <ProfileModal
-              isOpen={isMemberProfileOpen}
-              onCloseModal={onCloseMemberProfile}
-              userProfile={focusedTeamM as UserProfile}
-            />
-          )}
-          {isChoiceModalOpen && (
-            <TeamOptionsModal
-              isOpen={isChoiceModalOpen}
-              onCloseModal={onCloseChoiceModal}
-              onLeaveTeam={() => onUpdateGroupCommitment(false)}
-              onStayTeam={() => onUpdateGroupCommitment(true)}
-            />
-          )}
-          {config === DashboardConfig.AccessDenied &&
-            renderEmailVerificationRequired()}
-          {config === DashboardConfig.Nothing && renderNothing()}
-          {config === DashboardConfig.Upcoming && renderUpcoming()}
-          {config === DashboardConfig.Joinable && renderJoinable()}
-          {config === DashboardConfig.Leavable && renderLeavable()}
-          {config === DashboardConfig.Waiting && renderWaiting()}
-          {config === DashboardConfig.Teaming && renderTeaming()}
-        </div>
-      </ThemeProvider>
+      <Footprints />
+      <div className="dashboard__content-container">
+        {config === DashboardConfig.AccessDenied &&
+          renderEmailVerificationRequired()}
+        {config === DashboardConfig.Nothing && renderNothing()}
+        {config === DashboardConfig.Upcoming && renderUpcoming()}
+        {config === DashboardConfig.Joinable && renderJoinable()}
+        {config === DashboardConfig.Leavable && renderLeavable()}
+        {config === DashboardConfig.Waiting && renderWaiting()}
+        {config === DashboardConfig.Teaming && <TeamPage />}
+      </div>
     </div>
   );
 };

@@ -1,8 +1,19 @@
 @import "../../common/styles/mixins.scss";
 @import "../../common/styles/colors.scss";
+@import "../../common/styles/shared.scss";
 
 .onboarding__skillsets {
   @include onboarding(600px);
+  
+  overflow-y: scroll;
+  height: calc(100vh - $header-height);
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar { 
+    display: none; 
+  }
+
   &__qna-container {
     margin: 20px 10% 150px 7%;
   }

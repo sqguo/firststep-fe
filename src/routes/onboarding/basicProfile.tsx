@@ -3,6 +3,7 @@ import React, {
   useState,
   useEffect,
   useCallback,
+  useRef,
 } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import _ from "lodash";
@@ -10,9 +11,6 @@ import * as actions from "../../store/actionCreators";
 import history from "../../history";
 import * as enums from "../../enums";
 import {
-  Step,
-  StepLabel,
-  Stepper,
   TextField,
   InputLabel,
   FormControl,
@@ -28,15 +26,18 @@ import {
 import { ThemeProvider } from "@mui/material/styles";
 
 import { LoadingScreen } from "../../common/components";
-import { onBoardingStepsMap, relevantOnboardingSteps } from "./onboardingConfig";
+import { onBoardingStepsMap } from "./onboardingConfig";
 import theme from "../../common/styles/theme";
 import "./basicProfile.scss";
+import Stepper from "./stepper";
 
 interface Props {}
 const currentStep = enums.OnboardingStatus.Step0;
 
 const BasicProfile: FunctionComponent<Props> = () => {
   const dispatch = useDispatch();
+  const containerRef = useRef<HTMLDivElement>(null);
+
   const isUpdating = useSelector(
     (state: AppState) => state.isUpdatingUserSettings
   );
@@ -87,7 +88,7 @@ const BasicProfile: FunctionComponent<Props> = () => {
     dispatch(
       actions.getUpdateUserProfileStartAction(newProfile.id, newProfile)
     );
-    setHasSubmission(true)
+    setHasSubmission(true);
   };
 
   const renderGenericTextForm = (
@@ -271,7 +272,11 @@ const BasicProfile: FunctionComponent<Props> = () => {
 
         <div className="onboarding__floating-button__container">
           <div className="onboarding__floating-button__submission">
-            <Fab variant="extended" onClick={onSubmit} disabled={!isSubmittable || isUpdating}>
+            <Fab
+              variant="extended"
+              onClick={onSubmit}
+              disabled={!isSubmittable || isUpdating}
+            >
               {isUpdating ? <CircularProgress size={25} /> : <NavigationIcon />}
               <span className="floating-button-text">Submit</span>
             </Fab>
@@ -281,7 +286,7 @@ const BasicProfile: FunctionComponent<Props> = () => {
               color="secondary"
               size="medium"
               onClick={() => {
-                window.scrollTo(0, 0);
+                containerRef.current && containerRef.current.scrollTo(0, 0);
               }}
             >
               <UpIcon />
@@ -293,18 +298,10 @@ const BasicProfile: FunctionComponent<Props> = () => {
   };
 
   return (
-    <div className="onboarding__basic-profile">
+    <div className="onboarding__basic-profile" ref={containerRef}>
       <LoadingScreen isLoading={isLoadingConfig} />
       <div className="onboarding__basic-profile-container">
-        <div className="onboarding__steps-container">
-          <Stepper activeStep={currentStep} alternativeLabel>
-            {relevantOnboardingSteps.map((step) => (
-              <Step key={step.id}>
-                <StepLabel>{step.brief}</StepLabel>
-              </Step>
-            ))}
-          </Stepper>
-        </div>
+        <Stepper currentStep={currentStep} />
         {renderProfileForm()}
       </div>
     </div>
