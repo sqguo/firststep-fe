@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import "./Footprints.scss";
 import { AnimatePresence, motion, MotionProps, Variants } from "framer-motion";
 import FootprintIcon from "../../assets/footprint.svg";
-import { filter, random } from "lodash";
+import { filter, random, range } from "lodash";
 import classNames from "classnames";
 
 const PRINT_RADIUS = 10;
@@ -154,9 +154,9 @@ const generateInital = (x_max: number, y_max: number) => {
   return { rand_x, rand_y, rand_r, rand_flip };
 };
 
-const generateGoodTrack = (x_max: number, y_max: number): Track => {
+const generateGoodTrack = (x_max: number, y_max: number): Track | null => {
   const MIN_ACCEPTABLE_LENGTH = 10;
-  while (true) {
+  for (let _ in range(20)) {
     const { rand_x, rand_y, rand_r, rand_flip } = generateInital(x_max, y_max);
     const track = generateTrack(
       x_max,
@@ -174,6 +174,7 @@ const generateGoodTrack = (x_max: number, y_max: number): Track => {
       return track;
     }
   }
+  return null;
 };
 
 const Footprints = () => {
@@ -191,7 +192,9 @@ const Footprints = () => {
     const execute = () => {
       if (width > 0 && height > 0) {
         const track = generateGoodTrack(width, height);
-        setTracks((tracks) => [...tracks, track]);
+        if (track) {
+          setTracks((tracks) => [...tracks, track]);
+        }
       }
     }
     execute()

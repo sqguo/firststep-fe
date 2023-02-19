@@ -27,7 +27,7 @@ function useAuthencatedUser() {
             userEmail,
             user.given_name ?? "First",
             user.family_name ?? "Last",
-            true
+            false
           )
         );
       }
