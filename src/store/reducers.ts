@@ -29,6 +29,7 @@ const initialState: AppState = {
   newEmailRejectionReason: null,
   isLoginModalOpen: false,
   showHomepageWalkthrough: false,
+  reducedFootprint: false,
 };
 
 const initialSignedInUserState: User = {
@@ -480,6 +481,12 @@ const reducer = (
       return {
         ...state,
         showHomepageWalkthrough: action.flag,
+      };
+    }
+    case actionTypes.SET_REDUCED_FOOTPRINT: {
+      return {
+        ...state,
+        reducedFootprint: action.flag,
       };
     }
   }

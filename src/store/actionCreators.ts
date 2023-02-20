@@ -409,3 +409,10 @@ export function getShowHomepageWalkthroughAction(flag: boolean): AnyAction {
     flag,
   }
 }
+
+export function getSetReducedFootprintAction(flag: boolean): AnyAction {
+  return {
+    type: actionTypes.SET_REDUCED_FOOTPRINT,
+    flag,
+  }
+}

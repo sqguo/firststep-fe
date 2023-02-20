@@ -6,6 +6,7 @@ import * as actionTypes from "./actionTypes";
 import * as apiService from "../api/services";
 import { onBoardingStepsMap } from "../routes/onboarding/onboardingConfig";
 import history from "../history";
+import cookies from "../cookies";
 
 function parseErrorCode(err: Error | AxiosError) {
   if (!axios.isAxiosError(err)) {
@@ -220,6 +221,9 @@ function* getGroupProfile({ userId }: AnyAction) {
 function* updateGroupCommitmemt({ payload }: AnyAction) {
   try {
     const { data } = yield call(apiService.updateGroupCommitment, payload);
+    // TODO: missing actual logic in backend!
+    cookies.set('commitment-'+payload.groupId, payload.action, { path: '/' });
+
     yield put(actionCreators.getUpdateGroupCommitmentSuccessAction(data));
   } catch (err: any) {
     yield put(

@@ -26,6 +26,7 @@ interface AppState {
 
   // misc
   showHomepageWalkthrough: boolean 
+  reducedFootprint: boolean
 }
 
 

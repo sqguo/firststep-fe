@@ -3,6 +3,10 @@
 
 $footprint-radius: 16px;
 
+.footprint-reduced {
+  opacity: 30%;
+}
+
 .footprint {
   position: absolute;
   margin: $footprint-radius;

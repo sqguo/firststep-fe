@@ -5,6 +5,7 @@ import { AnimatePresence, motion, MotionProps, Variants } from "framer-motion";
 import FootprintIcon from "../../assets/footprint.svg";
 import { filter, random, range } from "lodash";
 import classNames from "classnames";
+import { useSelector } from "react-redux";
 
 const PRINT_RADIUS = 10;
 const STEP_SIZE = 50;
@@ -183,6 +184,10 @@ const Footprints = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [tracks, setTracks] = useState<Track[]>([]);
 
+  const reduceFootprint = useSelector(
+    (state: AppState) => state.reducedFootprint
+  );
+
   useEffect(() => {
     setHeight(containerRef.current?.offsetHeight ?? 0);
     setWidth(containerRef.current?.offsetWidth ?? 0);
@@ -196,10 +201,10 @@ const Footprints = () => {
           setTracks((tracks) => [...tracks, track]);
         }
       }
-    }
-    execute()
+    };
+    execute();
     const interval = setInterval(() => {
-      execute()
+      execute();
     }, SPAWN_FREQUENCY);
     return () => clearInterval(interval);
   }, [width, height]);
@@ -210,7 +215,12 @@ const Footprints = () => {
   };
 
   return (
-    <div className="footprint">
+    <div
+      className={classNames({
+        footprint: true,
+        "footprint-reduced": reduceFootprint,
+      })}
+    >
       <div className="footprint__animation-wapper" ref={containerRef}>
         <AnimatePresence>
           {tracks.map((track) => (

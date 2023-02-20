@@ -1,0 +1,83 @@
+@import "../../common/styles/colors.scss";
+@import "../../common/styles/shared.scss";
+
+.team-chat {
+  padding-bottom: 12px;
+  position: relative;
+  width: min(700px, 100%);
+  padding-left: calc((100% - min(700px, 100%)) / 2);
+
+  .pn-msg-list {
+    height: 60vh;
+    padding-top: 30px;
+    --msg-list__background: rgba(255, 255, 255, 0);
+  }
+
+  .pn-msg-list-scroller {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  .pn-msg__title {
+    margin-bottom: 6px;
+  }
+
+  .pn-msg {
+    border-radius: 20px;
+  }
+
+  .pn-msg:hover {
+    background-color: rgba(206, 195, 216, 0);
+  }
+
+  .pn-msg--own {
+    --msg__avatar__margin: 2px 0 0 18px;
+    --msg__content__alignItems: flex-end;
+    --msg__flexDirection: row-reverse;
+    --msg__title__flexDirection: row-reverse;
+  }
+
+  .pn-msg-input {
+    --msg-input__background: rgba(255, 255, 255, 0);
+  }
+
+  .pn-msg__author {
+    --msg__author__fontWeight: 500;
+    --msg__author__fontSize: 14px;
+  }
+
+  .pn-msg__bubble {
+    --msg__bubble__color: white;
+    --msg__bubble__fontWeight: 300;
+    --msg__bubble__padding: 12px;
+    background-color: $eng-1-gray-light;
+    border-radius: 10px;
+  }
+
+  .pn-msg__avatar {
+    align-self: flex-end;
+    color: white;
+    font-weight: 600;
+    font-size: 13px;
+  }
+
+  .pn-msg-input__emoji-toggle {
+    --msg-input__icon__color: rgb(63 54 71 / 86%);
+  }
+
+  .pn-msg__actions {
+    --msg__actions--hover__color: rgba(106, 86, 123, 0.97);
+  }
+
+  .pn-msg-input__send {
+    --msg-input__send__color: rgba(63, 54, 71, 0.381);
+    --msg-input__send--active__color: #815aad;
+  }
+
+  .pn-msg__reactions-toggle {
+    border: none;
+  }
+}

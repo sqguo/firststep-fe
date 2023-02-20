@@ -4,15 +4,13 @@
   height: calc(100vh - $header-height);
 
   &__content-container {
-    padding-top: 70px;
-    padding-left: 30px;
-    padding-right: 30px;
-    padding-bottom: 30px;
+    height: 100%;
     position: relative;
     z-index: 100;
   }
 
-  &__standard-content-wrapper {
+  &__standard-content-wrapper:not(.dashboard__teaming) {
+    margin-top: 70px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -64,20 +62,25 @@
   }
 
   &__teaming__content {
+    position: relative;
+    pointer-events: all;
+    height: calc(100% - 60vh - 52px - 12px);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    justify-content: center;
+    @media screen and (max-width: $mobile-width-cutoff) {
+      gap: 6px;
+    }
+
     &__prompt-primary {
       font-size: 20px;
-      font-weight: 600;
-      margin-bottom: 5px;
+      font-weight: 800;
+      color: $eng-1-dark2;
     }
     &__prompt-secondary {
       font-size: 10px;
       font-weight: 300;
-      button.MuiButton-root {
-        color: purple;
-        font-size: 10px;
-        padding: 2px;
-        font-weight: 300;
-      }
     }
     &__teams-container {
       display: flex;
@@ -85,12 +88,15 @@
       flex-wrap: wrap;
       align-items: center;
       justify-content: center;
-      padding: 20px;
-      padding-bottom: 10px;
 
       .MuiAvatar-root {
         width: 60px;
         height: 60px;
+        @media screen and (max-width: $mobile-width-cutoff) {
+          font-size: 14px;
+          width: 40px;
+          height: 40px;
+        }
       }
     }
 
@@ -100,6 +106,14 @@
       &:hover {
         cursor: pointer;
         box-shadow: 5px 11px 50px -16px black;
+      }
+    }
+  }
+
+  &__teaming.chat-active {
+    .dashboard__teaming__content {
+      @media screen and (max-width: $mobile-width-cutoff) {
+        gap: 0px;
       }
     }
   }

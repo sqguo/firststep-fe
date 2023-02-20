@@ -1,2 +1,94 @@
+@import "../../common/styles/colors.scss";
+@import "../../common/styles/shared.scss";
 
+.team-page {
+  height: 100%;
 
+  &__team-chat-wrapper {
+    position: absolute;
+    width: 100vw;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+  }
+
+  .dashboard__teaming {
+    pointer-events: none;
+    height: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+  }
+
+  .close-chat-button {
+    position: absolute;
+    background-color: rgb(121 109 133 / 34%);
+    bottom: -30px;
+    left: calc(50% - 12px);
+  }
+
+  .open-chat-button {
+    margin-top: 10px;
+  }
+  .open-decision-button {
+    margin-top: -3px;
+    height: 24px;
+    border-radius: 6px;
+  }
+
+  .decision-wrapper {
+    padding-top: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 12px;
+
+    .decision-title {
+      font-size: 16px;
+      font-weight: 500;
+    }
+    .decision-description {
+      font-size: 13px;
+      font-weight: 300;
+      width: 50%;
+      text-align: center;
+      @media screen and (max-width: $mobile-width-cutoff) {
+        width: 90%;
+      }
+    }
+    .decision-final-decision {
+      font-weight: 800;
+    }
+    .decision-buttons-wrapper {
+      padding-top: 12px;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      gap: 12px;
+
+      .MuiButton-root.actionButton {
+        width: 80px;
+        color: black;
+      }
+      .MuiButton-root.actionButton-commit:hover {
+        background-color: #8c8cd2;
+      }
+      .MuiButton-root.actionButton-leave:hover {
+        background-color: #b17e7e;
+      }
+    }
+  }
+
+  // fix jumping issue
+  .decision-wrapper {
+    height: 0px;
+  }
+  .decision-open {
+    .decision-wrapper {
+      height: fit-content;
+    }
+  }
+}
