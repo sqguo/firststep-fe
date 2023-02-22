@@ -58,7 +58,7 @@ module.exports = function (_env, argv) {
         {
           rules: [
             {
-              test: /\.(png|jpg|gif)$/i,
+              test: /\.(png|jpg|gif|mp3)$/i,
               type: 'asset'
             }
           ]
