@@ -1,5 +1,8 @@
 import { createTheme } from "@mui/material/styles";
+import { v5 as uuidv5 } from "uuid";
 import _ from "lodash";
+
+const APP_UUID = process.env.APP_UUID as string;
 
 const theme = createTheme({
   palette: {
@@ -9,6 +12,16 @@ const theme = createTheme({
       dark: "#000000",
     },
   },
+  typography: {
+    fontFamily: `"Nunito", serif`,
+    fontSize: 14,
+    fontWeightLight: 300,
+    fontWeightRegular: 400,
+    fontWeightMedium: 500,
+    button: {
+      textTransform: 'none'
+    }
+  }
 });
 
 export const defaultTheme = createTheme({      
@@ -35,7 +48,13 @@ export const randomColors = [
   "#d9b2a3",
 ];
 
-export const randomColorPicker = () => {
+export const randomColorPicker = (key?: string) => {
+  if (key) {
+    // TODO: should be a better way
+    const gen = uuidv5(key, APP_UUID);
+    const sum = gen.split('').reduce((acc, val) => acc + val.charCodeAt(0), 0)
+    return randomColors[sum % (randomColors.length-1)]
+  }
   const rIndex = _.random(0, randomColors.length-1);
   return randomColors[rIndex];
 }

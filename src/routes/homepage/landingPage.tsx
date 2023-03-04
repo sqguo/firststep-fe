@@ -61,7 +61,7 @@ const AnimatedProfile = (props: AnimatedProfileProps) => {
 const LandingPage = () => {
   const { goToNextView } = useContext(homepageContext);
   const { loginWithRedirect } = useAuth0();
-  const { isLoggedIn } = useUserProfile();
+  const { isLoggedIn, isOnboardingCompleted } = useUserProfile();
   const time = useTime();
   const secondaryButtonOffsetY = useTransform(time, (v) =>
     Math.max(0, Math.sin(v / 300) * 4)
@@ -69,7 +69,11 @@ const LandingPage = () => {
 
   const onClickGetStarted = () => {
     if (isLoggedIn) {
-      history.push("/dashboard");
+      if (isOnboardingCompleted) {
+        history.push("/dashboard");
+      } {
+        history.push("/onboarding");
+      }
     } else {
       loginWithRedirect();
     }
@@ -94,7 +98,9 @@ const LandingPage = () => {
               onClick={onClickGetStarted}
             >
               {isLoggedIn
-                ? "🚀 Check your status"
+                ? isOnboardingCompleted
+                  ? "🚀 Check your status"
+                  : "🚀 Complete onboarding"
                 : "🚀 Get Started today"}
             </Button>
           </div>

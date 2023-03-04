@@ -204,7 +204,10 @@ const Footprints = () => {
     };
     execute();
     const interval = setInterval(() => {
-      execute();
+      // idle on tab switch
+      if (document.hasFocus()) {
+        execute();
+      }
     }, SPAWN_FREQUENCY);
     return () => clearInterval(interval);
   }, [width, height]);

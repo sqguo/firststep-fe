@@ -27,6 +27,8 @@ interface AppState {
   // misc
   showHomepageWalkthrough: boolean 
   reducedFootprint: boolean
+  isFetchingOtherUser: boolean
+  otherUserSkillsets: Record<number, UserSkillset[]>
 }
 
 

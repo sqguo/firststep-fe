@@ -104,10 +104,10 @@ function* getOrCreateUser({ payload, autoRedirect, redirectURL }: AnyAction) {
   }
 }
 
-function *logoutUser({ autoRedirect, redirectURL }: AnyAction) {
+function* logoutUser({ autoRedirect, redirectURL }: AnyAction) {
   yield put(actionCreators.getLogoutSuccessAction());
   if (autoRedirect) {
-    history.push('/');
+    history.push("/");
   } else if (redirectURL) {
     history.push(redirectURL);
   }
@@ -136,6 +136,20 @@ function* getCurrentUserSkillsets({ userId }: AnyAction) {
   } catch (err: any) {
     yield put(
       actionCreators.getCurrentUserSkillsetsFailureAction(
+        parseErrorCode(err),
+        err
+      )
+    );
+  }
+}
+
+function* getAnotherUserSkillsets({ userId }: AnyAction) {
+  try {
+    const { data } = yield call(apiService.getUserSkillsets, userId);
+    yield put(actionCreators.getAnotherUserSkillsetsSuccessAction(data));
+  } catch (err: any) {
+    yield put(
+      actionCreators.getAnotherUserSkillsetsFailureAction(
         parseErrorCode(err),
         err
       )
@@ -222,7 +236,7 @@ function* updateGroupCommitmemt({ payload }: AnyAction) {
   try {
     const { data } = yield call(apiService.updateGroupCommitment, payload);
     // TODO: missing actual logic in backend!
-    cookies.set('commitment-'+payload.groupId, payload.action, { path: '/' });
+    cookies.set("commitment-" + payload.groupId, payload.action, { path: "/" });
 
     yield put(actionCreators.getUpdateGroupCommitmentSuccessAction(data));
   } catch (err: any) {
@@ -252,6 +266,10 @@ function* rootSaga() {
     takeLatest(
       actionTypes.GET_CURRENT_USER_SKILLSETS_START,
       getCurrentUserSkillsets
+    ),
+    takeLatest(
+      actionTypes.GET_ANOTHER_USER_SKILLSETS_START,
+      getAnotherUserSkillsets
     ),
     takeLatest(
       actionTypes.GET_CURRENT_USER_PREFERENCES_START,

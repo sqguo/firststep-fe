@@ -178,7 +178,7 @@ const preference: FunctionComponent<Props> = () => {
   };
 
   const renderSingleSlide = (pref: Preference) => {
-    const bgStyle = { backgroundColor: randomColorPicker() };
+    const bgStyle = { backgroundColor: randomColorPicker(String(pref.id)) };
     const reformatDesc = (desc: string) => {
       if (desc.length <= 300) return desc;
       const extra = desc.substring(320);

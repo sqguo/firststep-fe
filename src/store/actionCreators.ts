@@ -210,6 +210,29 @@ export function getCurrentUserSkillsetsFailureAction(status: number, error: any)
   };
 }
 
+export function getAnotherUserSkillsetsStartAction(userId: number): AnyAction {
+  return {
+    type: actionTypes.GET_ANOTHER_USER_SKILLSETS_START,
+    userId
+  };
+}
+
+export function getAnotherUserSkillsetsSuccessAction(resp: GetCurrentUserSkillsetsResponse): AnyAction {
+  return {
+    type: actionTypes.GET_ANOTHER_USER_SKILLSETS_SUCCESS,
+    userId: resp.userId,
+    skillsets: resp.skillsets
+  };
+}
+
+export function getAnotherUserSkillsetsFailureAction(status: number, error: any): AnyAction {
+  return {
+    type: actionTypes.GET_ANOTHER_USER_SKILLSETS_FAILURE,
+    status,
+    error
+  };
+}
+
 export function getCurrentUserPerferencesStartAction(userId: number): AnyAction {
   return {
     type: actionTypes.GET_CURRENT_USER_PREFERENCES_START,

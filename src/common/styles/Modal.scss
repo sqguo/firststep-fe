@@ -17,13 +17,15 @@
 
 %modal-action-button-container {
   position: absolute;
-  top: 15px;
-  right: 15px;
+  top: -15px;
+  right: -15px;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 36px;
   height: 36px;
+  background-color: #a9aef3;
+  border-radius: 50%;
 }
 
 %modal-action-button {

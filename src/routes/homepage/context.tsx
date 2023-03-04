@@ -14,12 +14,14 @@ interface homepageContextProps {
   currentView: Views;
   setCurrentView: (val: Views) => void;
   goToNextView: () => void;
+  goToPrevView: () => void;
 }
 
 export const homepageContext = createContext({
   currentView: Views.LandingPage,
   setCurrentView: noop,
   goToNextView: noop,
+  goToPrevView: noop,
 } as homepageContextProps);
 
 const HomepageProvider = (props: any) => {
@@ -31,6 +33,12 @@ const HomepageProvider = (props: any) => {
   const goToNextView = () => {
     setCurrentView((v) =>
       v < Views.HowItWorks3_PostMatch ? v + 1 : Views.LandingPage
+    );
+  };
+
+  const goToPrevView = () => {
+    setCurrentView((v) =>
+      v > Views.LandingPage ? v - 1 : Views.LandingPage
     );
   };
 
@@ -49,6 +57,7 @@ const HomepageProvider = (props: any) => {
         currentView,
         setCurrentView,
         goToNextView,
+        goToPrevView,
       }}
     >
       {props.children}

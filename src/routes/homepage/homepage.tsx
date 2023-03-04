@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import ReactScrollWheelHandler from "react-scroll-wheel-handler";
 import {
   motion,
   MotionProps,
@@ -24,6 +25,18 @@ const subframeProps: MotionProps = {
   exit: { y: "calc(110px - 100vh)", opacity: 0 },
 };
 
+const subframeLandingProps: MotionProps = {
+  ...subframeProps,
+  initial: { y: "100vh", opacity: 0 },
+}
+
+const subframeLastFrameProps: MotionProps = {
+  ...subframeProps,
+  exit: { y: "100vh", opacity: 0 },
+}
+
+
+
 const floatingButtonProps: MotionProps = {
   transition: { duration: 0.6 },
   initial: { opacity: 0 },
@@ -32,20 +45,25 @@ const floatingButtonProps: MotionProps = {
 };
 
 const Homepage = () => {
-  const { currentView, goToNextView } = useContext(homepageContext);
+  const { currentView, goToNextView, setCurrentView } =
+    useContext(homepageContext);
   const time = useTime();
   const secondaryButtonOffsetY = useTransform(time, (v) =>
     Math.max(0, Math.sin(v / 300) * 4)
   );
 
   return (
-    <div className="homepage">
+    <ReactScrollWheelHandler
+      className="homepage"
+      upHandler={() => setCurrentView(Views.LandingPage)}
+      downHandler={goToNextView}
+    >
       <AnimatePresence initial={false}>
         {currentView === Views.LandingPage && (
           <motion.div
             key={Views.LandingPage}
             className="homepage__subframe"
-            {...subframeProps}
+            {...subframeLandingProps}
           >
             <LandingPage />
           </motion.div>
@@ -72,7 +90,7 @@ const Homepage = () => {
           <motion.div
             key={Views.HowItWorks3_PostMatch}
             className="homepage__subframe"
-            {...subframeProps}
+            {...subframeLastFrameProps}
           >
             <HowItWorks3 />
           </motion.div>
@@ -100,7 +118,7 @@ const Homepage = () => {
           )}
         </AnimatePresence>
       </div>
-    </div>
+    </ReactScrollWheelHandler>
   );
 };
 

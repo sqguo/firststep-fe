@@ -3,14 +3,23 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getOpenLoginModalAction,
   getShowHomepageWalkthroughAction,
+  getLogoutStartAction,
 } from "../../store/actionCreators";
 import history from "../../history";
+import { useAuth0 } from "@auth0/auth0-react";
 
 import { Button, IconButton, Popover } from "@mui/material";
 import { Menu as MenuIcon } from "@mui/icons-material";
+import VerifiedIcon from "@mui/icons-material/Verified";
+import NewReleasesIcon from "@mui/icons-material/NewReleases";
+import LogoutIcon from "@mui/icons-material/Logout";
+import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
+import SimCardAlertIcon from '@mui/icons-material/SimCardAlert';
 import ProfileIcon from "../../assets/profile.svg";
 import "./AppBar.scss";
 import classNames from "classnames";
+import usePopoverHandler from "../hooks/usePopoverHandler";
+import useUserProfile from "../hooks/useUserProfile";
 
 const logo = require("../../assets/logo.png");
 const homepageImage = require("../../assets/homepage.png");
@@ -18,66 +27,42 @@ const onboardingImage = require("../../assets/onboarding.png");
 
 export default function MyAppBar() {
   const dispatch = useDispatch();
+  const { user, loginWithRedirect, logout } = useAuth0();
 
-  const profile = useSelector((state: AppState) => state.currentUser?.profile);
+  const { userProfile: profile, isOnboardingCompleted } = useUserProfile();
   const displayName = profile?.displayName;
   const avatarURL = profile?.avatarURL;
-  const [hoveredPopover, setHoveredPopover] = useState(false);
-  const [hoveredPopoverButton, setHoveredPopoverButton] = useState(false);
-  const hoveredPopoverRef = useRef(false);
-  const hoveredPopoverButtonRef = useRef(false);
-  const [openPopover, setOpenPopover] = useState(false);
-  const openPopoverRef = useRef(true);
-  const closePopoverDelayRef = useRef(false);
+
   const appBarRef = useRef<HTMLDivElement>(null);
+  const {
+    openPopover: openPopover1,
+    setOpenPopover: setOpenPopover1,
+    setHoveredPopover: setHoveredPopover1,
+    setHoveredPopoverButton: setHoveredPopoverButton1,
+  } = usePopoverHandler();
 
-  const onOpenLoginModal = () => {
-    dispatch(getOpenLoginModalAction());
+  // TODO generic component
+  const {
+    openPopover: openPopover2,
+    setOpenPopover: setOpenPopover2,
+    setHoveredPopover: setHoveredPopover2,
+    setHoveredPopoverButton: setHoveredPopoverButton2,
+  } = usePopoverHandler();
+
+  const onClickLogout = () => {
+    setOpenPopover2(false);
+    logout({ openUrl: false });
+    dispatch(getLogoutStartAction());
+    history.push("/");
   };
-
-  // TODO: REMOVE DEVELOPMENT CONFIG
-  const onNavigateToDashboard = () => {
-    dispatch(getOpenLoginModalAction());
-  };
-
-  useEffect(() => {
-    openPopoverRef.current = openPopover;
-  }, [openPopover]);
-
-  useEffect(() => {
-    hoveredPopoverRef.current = hoveredPopover;
-    hoveredPopoverButtonRef.current = hoveredPopoverButton;
-    if (hoveredPopover || hoveredPopoverButton) {
-      closePopoverDelayRef.current = false;
-      setOpenPopover(true);
-    }
-  }, [hoveredPopover, hoveredPopoverButton]);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (
-        !hoveredPopoverRef.current &&
-        !hoveredPopoverButtonRef.current &&
-        openPopoverRef.current
-      ) {
-        if (closePopoverDelayRef.current) {
-          setOpenPopover(false);
-        } else {
-          closePopoverDelayRef.current = true;
-        }
-      }
-    }, 200);
-    return () => clearInterval(interval);
-  }, [
-    openPopoverRef,
-    hoveredPopoverRef,
-    hoveredPopoverButtonRef,
-    setOpenPopover,
-  ]);
 
   const renderProfile = () => {
     return (
-      <div className="AppBar__profile" onClick={onNavigateToDashboard}>
+      <div
+        className="AppBar__profile"
+        onMouseOver={() => setHoveredPopoverButton2(true)}
+        onMouseLeave={() => setHoveredPopoverButton2(false)}
+      >
         <div className="AppBar__profile__avatar-container">
           {avatarURL ? <img src={avatarURL}></img> : <ProfileIcon />}
         </div>
@@ -88,12 +73,12 @@ export default function MyAppBar() {
     );
   };
 
-  const renderPopover = () => {
+  const renderPopover1 = () => {
     return (
       <Popover
         id={"appbar-popover"}
         className="AppBar__popover"
-        open={openPopover}
+        open={openPopover1}
         anchorEl={appBarRef.current}
         anchorOrigin={{
           vertical: "bottom",
@@ -105,14 +90,18 @@ export default function MyAppBar() {
         <div
           className="AppBar__popover__content"
           style={{ pointerEvents: "all" }}
-          onMouseOver={() => setHoveredPopover(true)}
-          onMouseLeave={() => setHoveredPopover(false)}
+          onMouseOver={() => setHoveredPopover1(true)}
+          onMouseLeave={() => setHoveredPopover1(false)}
         >
           <div
             className="AppBar__popover__content__section"
             onClick={() => {
-              setOpenPopover(false);
-              history.push("/dashboard");
+              setOpenPopover1(false);
+              if (!isOnboardingCompleted) {
+                history.push("/onboarding/profile");
+              } else {
+                history.push("/dashboard");
+              }
             }}
           >
             <img src={homepageImage as string} />
@@ -126,7 +115,7 @@ export default function MyAppBar() {
           <div
             className="AppBar__popover__content__section"
             onClick={() => {
-              setOpenPopover(false);
+              setOpenPopover1(false);
               history.push("/onboarding/profile");
             }}
           >
@@ -143,28 +132,98 @@ export default function MyAppBar() {
     );
   };
 
+  const renderPopover2 = () => {
+    return (
+      <Popover
+        id={"appbar-popover"}
+        className="AppBar__popover2"
+        open={openPopover2}
+        anchorEl={appBarRef.current}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "right",
+        }}
+        transformOrigin={{ vertical: -16, horizontal: "right" }}
+        sx={{ pointerEvents: "none" }}
+      >
+        <div
+          className="AppBar__popover2__content"
+          style={{ pointerEvents: "all" }}
+          onMouseOver={() => setHoveredPopover2(true)}
+          onMouseLeave={() => setHoveredPopover2(false)}
+        >
+          <div className="AppBar__popover2__content__email2">signed in as</div>
+          <div className="AppBar__popover2__content__email3">
+            <span>{user?.email}</span>
+          </div>
+          <div className="AppBar__popover2__content__verified">
+            <>
+              {user?.email_verified ? (
+                <>
+                  <VerifiedIcon /> <span>verified</span>
+                </>
+              ) : (
+                <>
+                  <NewReleasesIcon className="warning-icon" />{" "}
+                  <span>verification required</span>
+                </>
+              )}
+              {user?.email_verified && (
+                <>
+                  <span>&nbsp;</span>
+                  {isOnboardingCompleted ? (
+                    <>
+                      <AssignmentTurnedInIcon /> <span>onboarding</span>
+                    </>
+                  ) : (
+                    <>
+                      <SimCardAlertIcon className="warning-icon" />{" "}
+                      <span>onboarding</span>
+                    </>
+                  )}
+                </>
+              )}
+            </>
+          </div>
+          <div className="AppBar__popover2__content__logout">
+            <Button
+              className="actionButton"
+              variant="outlined"
+              color="inherit"
+              onClick={onClickLogout}
+            >
+              <LogoutIcon />
+              &nbsp;&nbsp;Log out
+            </Button>
+          </div>
+        </div>
+      </Popover>
+    );
+  };
+
   return (
     <div className="AppBar__wrapper">
-      {renderPopover()}
+      {renderPopover1()}
+      {profile && renderPopover2()}
       <div className="AppBar" ref={appBarRef}>
         <div className="AppBar__content">
           <div className="AppBar__content__section1">
             <div
               className="AppBar__menu-button-wrapper"
-              onMouseOver={() => setHoveredPopoverButton(true)}
-              onMouseLeave={() => setHoveredPopoverButton(false)}
+              onMouseOver={() => setHoveredPopoverButton1(true)}
+              onMouseLeave={() => setHoveredPopoverButton1(false)}
             >
               <IconButton
                 className={classNames({
                   actionIconButton: true,
-                  actionIconButton__active: openPopover,
+                  actionIconButton__active: openPopover1,
                 })}
                 size="large"
                 edge="start"
                 color="inherit"
                 aria-label="menu"
                 sx={{ mr: 2 }}
-                onClick={() => setOpenPopover(true)}
+                onClick={() => setOpenPopover1(true)}
               >
                 <MenuIcon />
               </IconButton>
@@ -193,7 +252,7 @@ export default function MyAppBar() {
               className="actionButton"
               variant="outlined"
               color="inherit"
-              onClick={onOpenLoginModal}
+              onClick={() => loginWithRedirect()}
             >
               Sign in
             </Button>

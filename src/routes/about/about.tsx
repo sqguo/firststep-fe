@@ -11,7 +11,6 @@ const MAX_GOOSE_INDEX = 10;
 
 const About: FunctionComponent<Props> = () => {
     return <>
-        <Footprints/>
         <AboutMessage/>
     </>
 };

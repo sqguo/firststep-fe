@@ -30,6 +30,8 @@ const initialState: AppState = {
   isLoginModalOpen: false,
   showHomepageWalkthrough: false,
   reducedFootprint: false,
+  isFetchingOtherUser: false,
+  otherUserSkillsets: {},
 };
 
 const initialSignedInUserState: User = {
@@ -218,14 +220,14 @@ const reducer = (
       return {
         ...state,
         isLoadingCurrentUser: true,
-      }
+      };
     case actionTypes.LOGOUT_USER_SUCCESS:
       return {
         ...state,
         isLoginModalOpen: false,
         currentUser: null,
         isLoadingCurrentUser: false,
-      }
+      };
     case actionTypes.GET_OR_CREATE_USER_START:
     case actionTypes.GET_CURRENT_USER_START: {
       return {
@@ -278,6 +280,30 @@ const reducer = (
       return {
         ...state,
         isLoadingUserSettings: false,
+        hasError: true,
+      };
+    }
+    case actionTypes.GET_ANOTHER_USER_SKILLSETS_START: {
+      return {
+        ...state,
+        isFetchingOtherUser: true,
+      };
+    }
+    case actionTypes.GET_ANOTHER_USER_SKILLSETS_SUCCESS: {
+      const allUsersSkills = {
+        ...state.otherUserSkillsets,
+        [action.userId]: action.skillsets,
+      };
+      return {
+        ...state,
+        otherUserSkillsets: allUsersSkills,
+        isFetchingOtherUser: false,
+      };
+    }
+    case actionTypes.GET_ANOTHER_USER_SKILLSETS_FAILURE: {
+      return {
+        ...state,
+        isFetchingOtherUser: false,
         hasError: true,
       };
     }

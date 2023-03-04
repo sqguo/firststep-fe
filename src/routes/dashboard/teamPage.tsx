@@ -187,7 +187,7 @@ const TeamPage = () => {
                     onClick={() => onOpenMemberProfile(member)}
                   >
                     <Avatar
-                      sx={{ bgcolor: randomColorPicker() }}
+                      sx={{ bgcolor: randomColorPicker(String(member.id)) }}
                       alt={member.firstName + " " + member.lastName}
                       src={member.avatarURL || ""}
                     >
