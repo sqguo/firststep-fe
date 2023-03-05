@@ -24,6 +24,7 @@ import useUserProfile from "../hooks/useUserProfile";
 const logo = require("../../assets/logo.png");
 const homepageImage = require("../../assets/homepage.png");
 const onboardingImage = require("../../assets/onboarding.png");
+const clipcart = require("../../assets/login.png");
 
 export default function MyAppBar() {
   const dispatch = useDispatch();
@@ -152,6 +153,9 @@ export default function MyAppBar() {
           onMouseOver={() => setHoveredPopover2(true)}
           onMouseLeave={() => setHoveredPopover2(false)}
         >
+          <div className="AppBar__popover2__content__clipart">
+            <img src={clipcart}></img>
+          </div>
           <div className="AppBar__popover2__content__email2">signed in as</div>
           <div className="AppBar__popover2__content__email3">
             <span>{user?.email}</span>

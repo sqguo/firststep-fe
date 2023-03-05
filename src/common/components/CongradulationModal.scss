@@ -1,0 +1,59 @@
+@import "../styles/colors.scss";
+@import "../styles/Modal.scss";
+
+// .MuiBackdrop-root {
+//   background-color: rgba(0, 0, 0, 0.8) !important;
+// }
+
+.congradulation-modal {
+  &__content-container {
+    @extend %modal-content-container;
+    z-index: 10000;
+    background-color: #fff9bf;
+    border-radius: 10px;
+    height: fit-content;
+    width: min(85vw, 400px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__title {
+    font-size: 16px;
+    font-weight: 900;
+    text-align: center;
+    color: #4c3356;
+    &:first-of-type {
+      font-size: 20px;
+    }
+  }
+
+  &__description {
+    margin-top: 12px;
+    font-size: 12px;
+    font-weight: 300;
+    text-align: center;
+  }
+
+  &__button {
+    margin-top: 18px;
+  }
+
+  &__animation-wrapper {
+    position: fixed;
+    top: 20px;
+    left: 0;
+    z-index: 10000;
+    pointer-events: none;
+
+    .flying-goose-wrapper {
+      position: absolute;
+    }
+
+    .flying-goose {
+      width: 120px;
+      height: 80px;
+      transform: scaleX(1);
+    }
+  }
+}

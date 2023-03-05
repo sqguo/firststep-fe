@@ -15,14 +15,29 @@
     .MuiStep-root.interactive {
       &:hover {
         cursor: pointer;
-        
+
         .MuiStepIcon-root {
           color: rgba(0, 0, 0, 0.8);
         }
         .MuiStepLabel-label {
-          color: rgba(0, 0, 0, 0.8);;
+          color: rgba(0, 0, 0, 0.8);
           font-weight: 600;
         }
+      }
+    }
+
+    svg.MuiSvgIcon-root[data-testid="RecommendIcon"] {
+      background: black;
+      border-radius: 50%;
+      path {
+        fill: #ebe3e3;
+      }
+    }
+    svg.MuiSvgIcon-root[data-testid="ErrorOutlineIcon"] {
+      background: #f83333;
+      border-radius: 50%;
+      path {
+        fill: #ebe3e3;
       }
     }
   }

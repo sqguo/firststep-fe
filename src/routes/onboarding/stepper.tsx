@@ -5,6 +5,10 @@ import * as enums from "../../enums";
 import { relevantOnboardingSteps } from "./onboardingConfig";
 import useUserProfile from "../../common/hooks/useUserProfile";
 import history from "../../history";
+import { useAuth0 } from "@auth0/auth0-react";
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import RecommendIcon from '@mui/icons-material/Recommend';
+
 import "./stepper.scss";
 
 interface StepperProps {
@@ -14,6 +18,8 @@ interface StepperProps {
 const Stepper = (props: StepperProps) => {
   const { currentStep } = props;
   const { userOnboardingStatus } = useUserProfile();
+  const { user } = useAuth0();
+  const isUserVerified = !!user?.email_verified;
 
   return (
     <div className="onboarding__steps-container">
@@ -26,6 +32,13 @@ const Stepper = (props: StepperProps) => {
             userOnboardingStatus &&
             step.id <= userOnboardingStatus + 1 &&
             step.id !== enums.OnboardingStatus.Step0;
+          const specialProps =
+            step.id === enums.OnboardingStatus.Step0
+              ? { completed: isUserVerified }
+              : {};
+          const specialLabelProps = step.id === enums.OnboardingStatus.Step0
+          ? { StepIconComponent: isUserVerified ? RecommendIcon : ErrorOutlineIcon }
+          : {};
           return (
             <Step
               className={classNames({
@@ -37,8 +50,9 @@ const Stepper = (props: StepperProps) => {
                   history.push(step.currentUrl);
                 }
               }}
+              {...specialProps}
             >
-              <StepLabel>{step.brief}</StepLabel>
+              <StepLabel {...specialLabelProps}>{step.brief}</StepLabel>
             </Step>
           );
         })}

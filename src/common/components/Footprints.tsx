@@ -221,7 +221,8 @@ const Footprints = () => {
     <div
       className={classNames({
         footprint: true,
-        "footprint-reduced": reduceFootprint,
+        "footprint-reduced": reduceFootprint > 0,
+        "footprint-hidden": reduceFootprint === 100,
       })}
     >
       <div className="footprint__animation-wapper" ref={containerRef}>

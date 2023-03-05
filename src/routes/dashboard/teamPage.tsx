@@ -25,6 +25,8 @@ import TeamChat from "./teamChat";
 import "./teamPage.scss";
 import cookies from "../../cookies";
 import { GroupCommitmentOptions } from "../../enums";
+import CongradulationModal from "../../common/components/CongradulationModal";
+import { isNil } from "lodash";
 
 const profileVariants: Variants = {
   static: { translateY: 0 },
@@ -33,7 +35,7 @@ const profileVariants: Variants = {
     transition: {
       duration: 0.3,
       bounce: 0.5,
-      type: 'spring',
+      type: "spring",
     },
   },
 };
@@ -60,6 +62,7 @@ const TeamPage = () => {
   const [focusedTeamM, setFocusedTeamM] = useState(null as UserProfile | null);
   const [isMemberProfileOpen, setIsMemberProfileOpen] = useState(false);
   const [isChoiceModalOpen, setIsChoiceModalOpen] = useState(false);
+  const [isCongradulation, setIsCongradulation] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [isDecisionOpen, setIsDecisionOpen] = useState(false);
   const [prevDecision, setPrevDecision] = useState(
@@ -79,10 +82,28 @@ const TeamPage = () => {
   }, [groupId]);
 
   useEffect(() => {
-    if (isChatOpen) {
-      dispatch(actions.getSetReducedFootprintAction(true));
+    if (groupId) {
+      const congrat = cookies.get("congradulation-" + groupId);
+      console.log(congrat)
+      if (isNil(congrat) || Number(congrat) === 0) {
+        setIsCongradulation(true);
+      }
+    }
+  }, [])
+
+  useEffect(() => {
+    if (isCongradulation) {
+      dispatch(actions.getSetReducedFootprintAction(100));
     } else {
-      dispatch(actions.getSetReducedFootprintAction(false));
+      dispatch(actions.getSetReducedFootprintAction(0));
+    }
+  }, [isCongradulation]);
+
+  useEffect(() => {
+    if (isChatOpen) {
+      dispatch(actions.getSetReducedFootprintAction(1));
+    } else {
+      dispatch(actions.getSetReducedFootprintAction(0));
     }
   }, [isChatOpen]);
 
@@ -91,7 +112,7 @@ const TeamPage = () => {
       profileControl.start("active");
     }, 5000);
     return () => clearInterval(interval);
-  }, [profileControl])
+  }, [profileControl]);
 
   const onOpenMemberProfile = (member: UserProfile) => {
     setFocusedTeamM(member);
@@ -126,6 +147,13 @@ const TeamPage = () => {
 
   return (
     <React.Fragment>
+      {isCongradulation && (
+        <CongradulationModal
+          isOpen={isCongradulation}
+          onCloseModal={() => setIsCongradulation(false)}
+          groupId={groupId ?? -1}
+        />
+      )}
       {isMemberProfileOpen && (
         <ProfileModal
           isOpen={isMemberProfileOpen}

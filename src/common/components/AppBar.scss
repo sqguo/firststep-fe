@@ -122,6 +122,19 @@
       flex-direction: column;
       justify-content: center;
       gap: 6px;
+
+      &__clipart {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 10px;
+        img {
+          border-radius: 10px;
+          width: 130px;
+          box-shadow: 0px 7px 41px -10px rgba(0, 0, 0, 0.7);
+        }
+      }
+
       &__email2 {
         // margin-top: 3px;
         margin-bottom: -6px;

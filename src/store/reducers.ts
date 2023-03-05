@@ -29,7 +29,7 @@ const initialState: AppState = {
   newEmailRejectionReason: null,
   isLoginModalOpen: false,
   showHomepageWalkthrough: false,
-  reducedFootprint: false,
+  reducedFootprint: 0,
   isFetchingOtherUser: false,
   otherUserSkillsets: {},
 };

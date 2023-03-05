@@ -6,6 +6,9 @@ $footprint-radius: 16px;
 .footprint-reduced {
   opacity: 30%;
 }
+.footprint-hidden {
+  opacity: 0%;
+}
 
 .footprint {
   position: absolute;
