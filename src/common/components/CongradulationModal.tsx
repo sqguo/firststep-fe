@@ -93,7 +93,7 @@ const CongradulationModal: FunctionComponent<Props> = (props) => {
               })}
             </div>
             <div className="congradulation-modal__content-container">
-              <div className="congradulation-modal__title">Congradulations!</div>
+              <div className="congradulation-modal__title">Congratulations!</div>
               <div className="congradulation-modal__title">
                 You have been matched with a team.
               </div>
