@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { getUserUUIDForId } from "./useUserProfile";
+import moment from "moment";
 
 const TestUsers = [
   {
@@ -30,7 +31,16 @@ function useUserGroup() {
       updated: "",
     })) ?? [];
 
-  const groupChannelName = 'group-'+String(userGroup?.id ?? -1);
+  const groupChannelName =
+    "group-" +
+    String(userGroup?.id ?? -1) +
+    "-" +
+    String(
+      userGroup?.dateOfCreation
+        ? moment.utc(userGroup.dateOfCreation).unix()
+        : 0
+    );
+  console.log('groupChannelName', groupChannelName)
 
   return {
     userGroup,
