@@ -155,25 +155,26 @@ const Dashboard: FunctionComponent<Props> = () => {
     );
   };
 
+  const countdownRenderer = ({
+    days,
+    hours,
+    minutes,
+    seconds,
+  }: CountdownRenderProps) => {
+    const dayformatted = days >= 10 ? String(days) : "0" + String(days);
+    const hourformatted = hours >= 10 ? String(hours) : "0" + String(hours);
+    const minuteformatted =
+      minutes >= 10 ? String(minutes) : "0" + String(minutes);
+    const secondformatted =
+      seconds >= 10 ? String(seconds) : "0" + String(seconds);
+    return (
+      <span className="dashboard__countdown__content">
+        {dayformatted}:{hourformatted}:{minuteformatted}:{secondformatted}
+      </span>
+    );
+  };
+
   const renderUpcoming = () => {
-    const countdownRenderer = ({
-      days,
-      hours,
-      minutes,
-      seconds,
-    }: CountdownRenderProps) => {
-      const dayformatted = days >= 10 ? String(days) : "0" + String(days);
-      const hourformatted = hours >= 10 ? String(hours) : "0" + String(hours);
-      const minuteformatted =
-        minutes >= 10 ? String(minutes) : "0" + String(minutes);
-      const secondformatted =
-        seconds >= 10 ? String(seconds) : "0" + String(seconds);
-      return (
-        <span className="dashboard__countdown__content">
-          {dayformatted}:{hourformatted}:{minuteformatted}:{secondformatted}
-        </span>
-      );
-    };
     return (
       <div className="dashboard__upcoming dashboard__standard-content-wrapper">
         <div className="dashboard__upcoming__content dashboard__standard-content">
@@ -192,9 +193,18 @@ const Dashboard: FunctionComponent<Props> = () => {
   };
 
   const renderLeavable = () => {
+    console.log("userMatchRound", userMatchRound);
     return (
       <div className="dashboard__leavable dashboard__standard-content-wrapper">
         <div className="dashboard__leavable__content dashboard__standard-content">
+          <div className="dashboard__countdown__wrapper">
+            {userMatchRound?.nextStart && (
+              <Countdown
+                date={userMatchRound?.nextStart as Date}
+                renderer={countdownRenderer}
+              />
+            )}
+          </div>
           <span>
             Thanks for joining! Our algorithm will soon find your FYDP team.
           </span>
