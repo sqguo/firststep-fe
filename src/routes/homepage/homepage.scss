@@ -21,6 +21,10 @@
       bottom: 50px;
     }
 
+    @media screen and (max-height: $mobile-height-cutoff2) {
+      bottom: 20px;
+    }
+
     &__secondary-action {
       font-size: 15px;
       cursor: pointer;

@@ -22,8 +22,14 @@
     padding-right: 20px;
 
     gap: 72px;
+    @media screen and (max-width: 770px) {
+      gap: 16px;
+    }
     @media screen and (max-width: $mobile-width-cutoff) {
-      gap: 0px;
+      gap: 16px;
+    }
+    @media screen and (max-height: $mobile-height-cutoff) and (max-width: 770px) {
+      gap: 6px;
     }
 
     &__text-container {
@@ -35,11 +41,19 @@
         font-weight: 700;
         font-family: "Barlow Condensed", sans-serif;
         margin-bottom: 16px;
+        @media screen and (max-height: $mobile-height-cutoff) and (max-width: 770px) {
+          text-align: center;
+          margin-bottom: 8px;
+        }
       }
 
       &__description {
         font-weight: 300;
         margin-bottom: 12px;
+        @media screen and (max-height: $mobile-height-cutoff) and (max-width: 770px) {
+          text-align: center;
+          font-size: 14px;
+        }
       }
     }
 
@@ -48,6 +62,10 @@
       flex-direction: column;
       width: 250px;
       overflow: hidden;
+
+      @media screen and (max-height: $mobile-height-cutoff) and (max-width: 770px) {
+        width: 200px;
+      }
     }
   }
 }

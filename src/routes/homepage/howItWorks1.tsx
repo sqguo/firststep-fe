@@ -83,7 +83,7 @@ const HowItWorks1 = () => {
             <div className="how-it-works-1__content__text-container__title">
               Swipe left or right?
             </div>
-            <div className="how-it-works-1__conten__text-container__description">
+            <div className="how-it-works-1__content__text-container__description">
               When you first sign up, we'll ask you to fill out a detailed
               profile that highlights your skills, experience, and preferences.
               This information will allow us to match you with teams that align

@@ -58,12 +58,19 @@
       @media screen and (max-width: $mobile-width-cutoff) {
         width: 90%;
       }
+      @media screen and (max-height: $mobile-height-cutoff) {
+        height: 20px;
+        overflow: scroll;
+      }
     }
     .decision-final-decision {
       font-weight: 800;
     }
     .decision-buttons-wrapper {
       padding-top: 12px;
+      @media screen and (max-height: $mobile-height-cutoff) {
+        padding-top: 2px;
+      }
       display: flex;
       flex-direction: row;
       justify-content: center;

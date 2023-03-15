@@ -25,7 +25,7 @@ const HowItWorks2 = () => {
             <div className="how-it-works-2__content__text-container__title">
               The hardest part...
             </div>
-            <div className="how-it-works-2__conten__text-container__description">
+            <div className="how-it-works-2__content__text-container__description">
               Our platform runs a highly sophisticated matching algorithm under
               the hood{" "}
               <span style={{ fontSize: 7 }}>

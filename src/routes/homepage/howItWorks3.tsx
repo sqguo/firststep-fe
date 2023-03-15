@@ -26,7 +26,7 @@ const HowItWorks3 = () => {
             <div className="how-it-works-3__content__text-container__title">
               PIP or get Piped;
             </div>
-            <div className="how-it-works-3__conten__text-container__description">
+            <div className="how-it-works-3__content__text-container__description">
               Once you've been matched with a team, you'll be able to chat with
               your potential team members through our platform. Take this time
               to get to know your team members better, ask questions, and

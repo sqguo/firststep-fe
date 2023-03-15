@@ -22,9 +22,18 @@
     padding-right: 20px;
 
     gap: 72px;
-    @media screen and (max-width: $mobile-width-cutoff) {
-      gap: 0px;
+    @media screen and (max-width: 770px) {
+      gap: 16px;
     }
+    @media screen and (max-width: 670px) {
+      gap: 16px;
+    }
+    @media screen and (max-width: $mobile-width-cutoff) {
+      gap: 6px;
+    }
+    // @media screen and (max-height: $mobile-height-cutoff) and (max-width: 700px) {
+    //   gap: 6px;
+    // }
 
     &__text-container {
       color: $eng-1-dark;
@@ -35,11 +44,19 @@
         font-weight: 700;
         font-family: "Barlow Condensed", sans-serif;
         margin-bottom: 16px;
+        @media screen and (max-height: $mobile-height-cutoff) and (max-width: 770px) {
+          text-align: center;
+          margin-bottom: 8px;
+        }
       }
 
       &__description {
         font-weight: 300;
         margin-bottom: 12px;
+        @media screen and (max-height: $mobile-height-cutoff) and (max-width: 770px) {
+          text-align: center;
+          font-size: 14px;
+        }
       }
     }
 
@@ -48,6 +65,18 @@
       flex-direction: column;
       width: 200px;
       overflow: hidden;
+      @media screen and (max-height: $mobile-height-cutoff) and (max-width: 770px) {
+        width: 120px;
+      }
+
+      time.react-clock {
+        width: 200px !important;
+        height: 200px !important;
+        @media screen and (max-height: $mobile-height-cutoff) and (max-width: 770px) {
+          width: 120px !important;
+          height: 120px !important;
+        }
+      }
     }
   }
 }
